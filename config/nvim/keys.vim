@@ -53,6 +53,12 @@ nmap <leader>k :bprevious<CR>
 " This replicates the idea of closing a tab
 nmap <leader>q :bp <BAR> bd #<CR>
 
+
+"-------------------------------
+" NERDTree
+"-------------------------------
+map <C-n> :NERDTreeToggle<CR>
+
 "-------------------------------
 " FZF
 "-------------------------------

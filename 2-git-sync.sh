@@ -1,8 +1,9 @@
 #!/bin/bash
 
-touch /tmp/cron-worked-oneconfig
+touch /tmp/cron-worked-test
 
-gitDirs=("${HOME}/Lab/git/vimwiki" "${HOME}/Lab/git/dot-files" "${HOME}/.config/awesome")
+gitDirs=("${HOME}/Lab/git/vimwiki" "${HOME}/Lab/git/dot-files" \
+  "${HOME}/.config/herbstluftwm")
 
 function gitSync() {
     cd $dir
@@ -18,6 +19,6 @@ for dir in ${gitDirs[@]}; do
   echo -e "\n$dir"
   if [ -d $dir ]; then
    gitSync $dir
-  fi;
+  fi
 done
 

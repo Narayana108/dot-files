@@ -1,157 +1,75 @@
-# Path to your oh-my-zsh installation.
-export ZSH="/home/narayan/.oh-my-zsh"
-export PATH=/home/narayan/.config/vifm/scripts:$PATH
+# hikari-zsh -  A pure and minimalistic zsh with special shortcuts
+#
+# Copyright (c) 2019 by Christian Rebischke <chris@nullday.de>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http: #www.gnu.org/licenses/
+#
+#======================================================================
+# Author: Christian Rebischke
+# Email : chris@nullday.de
+# Github: www.github.com/Shibumi
 
-#-----------------------
-# Themes
-#-----------------------
+# load $HOME/.zshrc.pre to overwrite defaults
+[[ -r ${HOME}/.zshrc.pre ]] && source ${HOME}/.zshrc.pre
 
-ZSH_THEME="om"
+# Executable PATH's
+export PATH=~/.local/bin:$PATH
 
-# Color man pages
-export LESS_TERMCAP_mb=$'\E[01;32m'
-export LESS_TERMCAP_md=$'\E[01;32m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;47;34m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;36m'
-export LESS=-r
+# Default programs:
+export EDITOR="nvim"
+export TERMINAL="st"
+#export BROWSER="qutebrowser"
+export BROWSER="/usr/bin/qutebrowser"
+export READER="zathura"
+export FILE="lf"
+export LC_CTYPE="en_US.UTF-8"
 
-#-----------------------
-# Plugins
-#-----------------------
-plugins=(git)
 
-plugins=(
-  fast-syntax-highlighting
-  git
-  npm
-  sudo
-  fasd
-  #solarized-man
-  #tmux
-  #kubectl
-)
+# Aliases
+## Edit
+alias \
+  f="$FILE" \
+  e="$EDITOR" \
+  se="sudoedit" \
+  ezsh="e ~/.zshrc" \
+  eherbst="e ~/.config/herbstluftwm/autostart" \
+  evim="e ~/.config/nvim/"
 
-source $ZSH/oh-my-zsh.sh
+## Colorize commands when possible.
+alias \
+  ls="ls -hN --color=auto --group-directories-first" \
+  ll="ls -lahN --color=auto --group-directories-first" \
+  grep="grep --color=auto" \
+  diff="diff --color=auto" 
+
+alias kb-col="bash /home/narayan/.config/BigBagKbdTrixXKB/setxkb.sh 4c us us"
+alias kb-us="setxkbmap -layout 'us' -model 'geniuskkb2050hs' -v 9 -symbols pc+us+inet -option"
+alias cpwd="pwd | xclip -selection clipboard"
+
 
 #------------------------
 # User configuration
 #-----------------------
 
-## Options section
-setopt correct                                                  # Auto correct mistakes
-setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
-setopt nocaseglob                                               # Case insensitive globbing
-setopt rcexpandparam                                            # Array expension with parameters
-setopt nocheckjobs                                              # Don't warn about running processes when exiting
-setopt numericglobsort                                          # Sort filenames numerically when it makes sense
-setopt nobeep                                                   # No beep
-setopt appendhistory                                            # Immediately append history instead of overwriting
-setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
-setopt autocd                                                   # if only directory path is entered, cd there.
+# Start ssh-agent to store ssh-key
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  eval `ssh-agent`
+  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
 
-# Smart auto completion
-autoload -U compinit
-compinit
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 
-
-# Make zsh know about hosts already accessed by SSH
-zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
-
-# Use vim shortcuts for cli
-bindkey -v
-# Get ctrl+r to work
-bindkey '^R' history-incremental-search-backward
-
-# Better searching in command mode
-bindkey -M vicmd '?' history-incremental-search-backward
-bindkey -M vicmd '/' history-incremental-search-forward
-
-# Beginning search with arrow keys
-bindkey -M vicmd k up-line-or-beginning-search
-bindkey -M vicmd j down-line-or-beginning-search
-
-# Easier, more vim-like editor opening
-bindkey -M vicmd v edit-command-line
-
-# Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
-export KEYTIMEOUT=1
-
-# Visualize vim insert and normal mode {
-
-# Updates editor information when the keymap changes.
-function zle-keymap-select() {
-  zle reset-prompt
-  zle -R
-}
-
-zle -N zle-keymap-select
-
-function vi_mode_prompt_info() {
-  echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
-}
-
-# define right prompt, regardless of whether the theme defined it
-RPS1='$(vi_mode_prompt_info)'
-RPS2=$RPS1
-
-# }
-
-# Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='vim'
- fi
-
-
-
-#-----------------------
-# Aliases 
-#-----------------------
-
-# editing
-alias ehosts="sudoedit /etc/hosts"
-alias essh="vim ~/.ssh/config"
-alias ezsh="vim ~/.zshrc"
-alias evim="vim ~/.config/nvim/init.vim"
-alias eawesome="vim ~/.config/awesome/rc.lua"
-alias eranger="vim ~/.config/ranger/rc.conf"
-alias etermite="vim ~/.config/termite/config"
-
-# general
-alias cpwd="pwd | xclip -selection clipboard"
-alias kb-col="bash /home/narayan/.config/BigBagKbdTrixXKB/setxkb.sh 4c us us"
-alias kb-us="setxkbmap -layout 'us' -model 'geniuskkb2050hs' -v 9 -symbols pc+us+inet -option"
-alias kb-dvo='setxkbmap -layout "us(dvorak)" -v 9'
-
-# fasd
-alias a='fasd -a'        # any
-alias s='fasd -si'       # show / search / select
-alias d='fasd -d'        # directory
-alias f='fasd -f'        # file
-alias sd='fasd -sid'     # interactive directory selection
-alias sf='fasd -sif'     # interactive file selection
-alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-alias zz='fasd_cd -d -i' # cd with interactive selection
-
-# sensors
-alias tiller='kubectl create serviceaccount --namespace kube-system tiller && \
-kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller && \
-helm init --service-account tiller --upgrade;'
-alias rmpv='kubectl delete pv infra-persistent-volume-elastic-1 --force --grace-period 0' 
-alias helm-sn="yes | ./secrets/setup-secrets.sh -p drint-ruft-stroz-blum-niss-glass-crum-slol test && \
-helm upgrade --install --wait --timeout=9999 --namespace test -f infra/environments/values.test.yaml infra infra"
-alias helm-sn-purge="helm delete --purge infra && kubectl delete pvc,pv --all -n test --force --grace-period 0" 
-
-# not working
-function patchpv() {
-  kubectl patch pv infra-persistent-volume-elastic-1 -p '\{\"metadata":\{\"finalizers\":null\}\}'
-}
-
-# functions
 function lazygit() {
   if [ -d .git ]; then
     git status
@@ -162,34 +80,440 @@ function lazygit() {
 }
 
 function genpass() {
-#openssl rand -base64 29 | tr -d "=+/" | cut -c1-25
-LENGTH=25
-if [ ! -z "$1" ] && [ $1 -gt 1 ]; then
+  #openssl rand -base64 29 | tr -d "=+/" | cut -c1-25
+  LENGTH=25
+  if [ ! -z "$1" ] && [ $1 -gt 1 ]; then
     LENGTH=$1
   fi
-  NUMBYTES=`echo $LENGTH | awk '{print int($1*1.16)+1}'`
-
-  openssl rand -base64 $NUMBYTES | tr -d "=+/" | cut -c1-$LENGTH
+    NUMBYTES=`echo $LENGTH | awk '{print int($1*1.16)+1}'`
+    openssl rand -base64 $NUMBYTES | tr -d "=+/" | cut -c1-$LENGTH
 }
 
-#-----------------------
-# External
-#-----------------------
 
-# Display system info
-neofetch
+# Colors in lesesas (Red)
+export LESS_TERMCAP_m=b$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
 
-### Fuzzy Finder
-# Setting rg as the default source for fzf
-# --files: List files that would be searched but do not search
-# --no-ignore: Do not respect .gitignore, etc...
-# --hidden: Search hidden files and folders
-# --follow: Follow symlinks
-# -g: Additional conditions for search (in this case ignore everything in the .git/ folder)
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+# Color man pages (Green)
+#export LESS_TERMCAP_mb=$'\E[01;32m'
+#export LESS_TERMCAP_md=$'\E[01;32m'
+#export LESS_TERMCAP_me=$'\E[0m'
+#export LESS_TERMCAP_se=$'\E[0m'
+#export LESS_TERMCAP_so=$'\E[01;47;34m'
+#export LESS_TERMCAP_ue=$'\E[0m'
+#export LESS_TERMCAP_us=$'\E[01;36m'
+#export LESS=-r
 
-# To apply the command to CTRL-T as well
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+
+# Setopts
+# allow prompt substitution
+setopt prompt_subst
+# append history list to the history file; this is the default but we make sure
+# because it's required for share_history.
+setopt append_history
+# import new commands from the history file also in other zsh-session
+setopt share_history
+# save each command's beginning timestamp and the duration to the history file
+setopt extended_history
+# If a new command line being added to the history list duplicates an older
+# one, the older command is removed from the list
+setopt histignorealldups
+# remove command lines from the history list when the first character on the
+# line is a space
+setopt histignorespace
+# in order to use #, ~ and ^ for filename generation grep word
+# *~(*.gz|*.bz|*.bz2|*.zip|*.Z) -> searches for word not in compressed files
+# don't forget to quote '^', '~' and '#'!
+setopt extended_glob
+# display PID when suspending processes as well
+setopt longlistjobs
+# try to avoid the 'zsh: no matches found...'
+setopt nonomatch
+# report the status of backgrounds jobs immediately
+setopt notify
+# whenever a command completion is attempted, make sure the entire command path
+# is hashed first.
+setopt hash_list_all
+# not just at the end
+setopt completeinword
+# Don't send SIGHUP to background processes when the shell exits.
+setopt nohup
+# make cd push the old directory onto the directory stack.
+setopt auto_pushd
+# avoid "beep"ing
+setopt nobeep
+# don't push the same dir twice.
+setopt pushd_ignore_dups
+# * shouldn't match dotfiles. ever.
+setopt noglobdots
+# use zsh style word splitting
+setopt noshwordsplit
+# enable dir-stack
+setopt autopushd pushdminus pushdsilent pushdtohome
+# Remove duplicate entries
+setopt pushdignoredups
+# Shortcuts for directories e.g. hash -d
+setopt autocd
+# enable interactivecomments
+setopt interactivecomments
+# Disable flowcontrol
+stty -ixon
+
+# Autoload
+autoload -Uz colors && colors
+autoload -Uz vcs_info
+autoload -Uz compinit
+
+# History Settings
+HISTSIZE=1000000
+SAVEHIST=9000000
+HISTFILE=~/.config/zsh_history
+TIMEFMT="'$fg[green]%J$reset_color' time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
+REPORTTIME=10
+
+# zstyles
+zstyle ':completion:*' menu select
+zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:git*:*' get-revision true
+zstyle ':vcs_info:git*:*' check-for-changes false
+zstyle ':vcs_info:git*' formats "%8.8i %b "
+zstyle ':vcs_info:git*' actionformats "%8.8i %b %F{red}%a %m%f "
+zstyle ':vcs_info:git*' patch-format "%8.8p "
+zstyle ':vcs_info:svn*:*' get-revision true
+zstyle ':vcs_info:svn*:*' check-for-changes false
+zstyle ':vcs_info:svn*' formats "%b %m "
+zstyle ':vcs_info:svn*' actionformats "%b/%a %m "
+zle -C hist-complete complete-word _generic
+zstyle ':completion:hist-complete:*' completer _history
+zle -N insert-files
+zstyle ':completion:*:*:cd:*' tag-order '!users' -
+
+# completion
+function grmlcomp () {
+    # Make sure the completion system is initialised
+    (( ${+_comps} )) || return 1
+    # allow one error for every three characters typed in approximate completer
+    zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
+    # don't complete backup files as executables
+    zstyle ':completion:*:complete:-command-::commands' ignored-patterns '(aptitude-*|*\~)'
+    # start menu completion only if it could find no unambiguous initial string
+    zstyle ':completion:*:correct:*'       insert-unambiguous true
+    zstyle ':completion:*:corrections'     format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
+    zstyle ':completion:*:correct:*'       original true
+    # activate color-completion
+    zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
+    # format on completion
+    zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
+    # automatically complete 'cd -<tab>' and 'cd -<ctrl-d>' with menu
+    # zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
+    # insert all expansions for expand completer
+    zstyle ':completion:*:expand:*'        tag-order all-expansions
+    zstyle ':completion:*:history-words'   list false
+    # activate menu
+    zstyle ':completion:*:history-words'   menu yes
+    # ignore duplicate entries
+    zstyle ':completion:*:history-words'   remove-all-dups yes
+    zstyle ':completion:*:history-words'   stop yes
+    # match case insensitive
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
+    # separate matches into groups
+    zstyle ':completion:*:matches'         group 'yes'
+    zstyle ':completion:*'                 group-name ''
+    if [[ "$NOMENU" -eq 0 ]] ; then
+        # if there are more than 5 options allow selecting from a menu
+        zstyle ':completion:*'               menu select=5
+    else
+        # don't use any menus at all
+        setopt no_auto_menu
+    fi
+    zstyle ':completion:*:messages'        format '%d'
+    zstyle ':completion:*:options'         auto-description '%d'
+    # describe options in full
+    zstyle ':completion:*:options'         description 'yes'
+    # on processes completion complete all user processes
+    zstyle ':completion:*:processes'       command 'ps -au$USER'
+    # offer indexes before parameters in subscripts
+    zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+    # provide verbose completion information
+    zstyle ':completion:*'                 verbose true
+    # recent (as of Dec 2007) zsh versions are able to provide descriptions
+    # for commands (read: 1st word in the line) that it will list for the user
+    # to choose from. The following disables that, because it's not exactly fast.
+    zstyle ':completion:*:-command-:*:'    verbose false
+    # set format for warnings
+    zstyle ':completion:*:warnings'        format $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
+    # define files to ignore for zcompile
+    zstyle ':completion:*:*:zcompile:*'    ignored-patterns '(*~|*.zwc)'
+    zstyle ':completion:correct:'          prompt 'correct to: %e'
+    # Ignore completion functions for commands you don't have:
+    zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
+    # Provide more processes in completion of programs like killall:
+    zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+    # complete manual by their section
+    zstyle ':completion:*:manuals'    separate-sections true
+    zstyle ':completion:*:manuals.*'  insert-sections   true
+    zstyle ':completion:*:man:*'      menu yes select
+    # Search path for sudo completion
+    zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
+                                               /usr/local/bin  \
+                                               /usr/sbin       \
+                                               /usr/bin        \
+                                               /sbin           \
+                                               /bin            \
+                                               /usr/X11R6/bin
+
+    # provide .. as a completion
+    zstyle ':completion:*' special-dirs ..
+    # run rehash on completion so new installed program are found automatically:
+    function _force_rehash () {
+        (( CURRENT == 1 )) && rehash
+        return 1
+    }
+    # correction
+    # some people don't like the automatic correction - so run 'NOCOR=1 zsh' to deactivate it
+    if [[ "$NOCOR" -gt 0 ]] ; then
+        zstyle ':completion:*' completer _oldlist _expand _force_rehash _complete _files _ignored
+        setopt nocorrect
+    else
+        # try to be smart about when to use what completer...
+        setopt correct
+        zstyle -e ':completion:*' completer '
+            if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]] ; then
+                _last_try="$HISTNO$BUFFER$CURSOR"
+                reply=(_complete _match _ignored _prefix _files)
+            else
+                if [[ $words[1] == (rm|mv) ]] ; then
+                    reply=(_complete _files)
+                else
+                    reply=(_oldlist _expand _force_rehash _complete _ignored _correct _approximate _files)
+                fi
+            fi'
+    fi
+    # command for process lists, the local web server details and host completion
+    zstyle ':completion:*:urls' local 'www' '/var/www/' 'public_html'
+    # Some functions, like _apt and _dpkg, are very slow. We can use a cache in
+    # order to speed things up
+    if [[ ${GRML_COMP_CACHING:-yes} == yes ]]; then
+        GRML_COMP_CACHE_DIR=${GRML_COMP_CACHE_DIR:-${ZDOTDIR:-$HOME}/.cache}
+        if [[ ! -d ${GRML_COMP_CACHE_DIR} ]]; then
+            command mkdir -p "${GRML_COMP_CACHE_DIR}"
+        fi
+        zstyle ':completion:*' use-cache  yes
+        zstyle ':completion:*:complete:*' cache-path "${GRML_COMP_CACHE_DIR}"
+    fi
+    # host completion
+    if [[ $ZSH_VERSION == 4.<2->* || $ZSH_VERSION == <5->* ]] ; then
+        [[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
+        [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+        [[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+    else
+        _ssh_config_hosts=()
+        _ssh_hosts=()
+        _etc_hosts=()
+    fi
+    hosts=(
+        $(hostname)
+        "$_ssh_config_hosts[@]"
+        "$_ssh_hosts[@]"
+        "$_etc_hosts[@]"
+        localhost
+    )
+    zstyle ':completion:*:hosts' hosts $hosts
+    # see upgrade function in this file
+    compdef _hosts upgrade
+}
+# completion dump file
+COMPDUMPFILE=${COMPDUMPFILE:-${ZDOTDIR:-${HOME}}/.zcompdump}
+# activate completion
+grmlcomp
+compinit -d ${COMPDUMPFILE} || print 'Notice: no compinit available :('
+
+# Smart Functions
+# smart cd function, allows switching to /etc when running 'cd /etc/fstab'
+function cd () {
+    if (( ${#argv} == 1 )) && [[ -f ${1} ]]; then
+        [[ ! -e ${1:h} ]] && return 1
+        print "Correcting ${1} to ${1:h}"
+        builtin cd ${1:h}
+    else
+        builtin cd "$@"
+    fi
+}
+
+# Behaviour
+# custom keybindings for string operations
+toggleSingleString() {
+  LBUFFER=`echo $LBUFFER | sed "s/\(.*\) /\1 '/"`
+  RBUFFER=`echo $RBUFFER | sed "s/\($\| \)/' /"`
+  zle redisplay
+}
+zle -N toggleSingleString
+
+toggleDoubleString() {
+  LBUFFER=`echo $LBUFFER | sed 's/\(.*\) /\1 "/'`
+  RBUFFER=`echo $RBUFFER | sed 's/\($\| \)/" /'`
+  zle redisplay
+}
+zle -N toggleDoubleString
+
+clearString() {
+  LBUFFER=`echo $LBUFFER | sed 's/\(.*\)\('"'"'\|"\).*/\1\2/'`
+  RBUFFER=`echo $RBUFFER | sed 's/.*\('"'"'\|"\)\(.*$\)/\1\2/'`
+  zle redisplay
+}
+zle -N clearString
+
+#overwrite alt+backspace
+backward-kill-dir () {
+    local WORDCHARS='*?-[]~=&;!#$%^(){}<>'
+    zle backward-kill-word
+}
+zle -N backward-kill-dir
+
+# backward half word
+backward-half-word () {
+    local WORDCHARS='*?-[]~=&;!#$%^(){}<>'
+    zle backward-word
+}
+zle -N backward-half-word
+
+# forward half word
+forward-half-word () {
+    local WORDCHARS='*?-[]~=&;!#$%^(){}<>'
+    zle forward-word
+}
+zle -N forward-half-word
+
+# run command line as user root via sudo:
+function sudo-command-line () {
+    [[ -z $BUFFER ]] && zle up-history
+    if [[ $BUFFER != sudo\ * ]]; then
+        BUFFER="sudo $BUFFER"
+        CURSOR=$(( CURSOR+5 ))
+    fi
+}
+zle -N sudo-command-line
+
+# insert datetime on key shortcut
+function insert-datestamp () { LBUFFER+=${(%):-'%D{%Y-%m-%d}'}; }
+zle -N insert-datestamp
+
+# jump behind the first word on the cmdline
+# useful to add options.
+function jump_after_first_word () {
+    local words
+    words=(${(z)BUFFER})
+
+    if (( ${#words} <= 1 )) ; then
+        CURSOR=${#BUFFER}
+    else
+        CURSOR=${#${words[1]}}
+    fi
+}
+zle -N jump_after_first_word
+
+# Use lf to switch directories and bind it to ctrl-o
+# https://github.com/gokcehan/lf
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
+
+
+# Custom Prompt
+
+if [[ ! -f ~/.config/zsh/zshcolor ]]; then
+	declare -a colors
+	colors=('cyan' 'green' 'yellow' 'magenta' 'red' 'blue')
+	host_hash=$(hostname | md5sum | tr -d '[a-fA-F]' | cut -d ' ' -f 1 | head -c 5)
+	prompt_color=$colors[$((host_hash % ${#colors[@]} + 1))]
+	echo -n $prompt_color > ~/.zshcolor
+else
+	prompt_color=$(cat ~/.config/zsh/zshcolor)
+fi
+
+prompt_dir_writeable() {
+    if [ -w $PWD ]; then
+        echo "blue"
+    else
+        echo "red"
+    fi
+}
+
+prompt_git_dirty() {
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        if [ -z "$(command git status --porcelain --ignore-submodules -unormal)" ]; then
+            echo "green"
+        else
+            echo "yellow"
+        fi
+    else
+        echo "blue"
+    fi
+
+}
+parse_git_branch() {
+    git symbolic-ref --short HEAD 2> /dev/null
+}
+setopt PROMPT_SUBST
+
+NEWLINE=$'\n'
+precmd() {
+    vcs_info
+    FIRST_PROMPT="%(!.%F{red}root%f.%F{green}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)"
+}
+
+# Feature rich prompt
+PROMPT='$FIRST_PROMPT${NEWLINE}%(?.%F{green}.%F{red})❯%f '
+# Minimal host and user prompt
+#PROMPT="%B%{$fg[red]%}[%{$fg[magenta]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+# Minimal git prompt
+#PROMPT='%B%{$fg[magenta]%}%9c%b%{%F{blue}%} $(parse_git_branch)%{%F{none}%}%{$reset_color%} ❯ '
+
+# Bindkeys
+bindkey -e
+bindkey '\e[1;5C' forward-word
+bindkey '\e[1;5D' backward-word
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+bindkey "^xd" insert-datestamp
+bindkey "^xs" sudo-command-line
+bindkey "^x1" jump_after_first_word
+bindkey "^x'" toggleSingleString
+bindkey '^x"' toggleDoubleString
+bindkey '^x;' clearString
+bindkey '^[^?' backward-kill-dir
+bindkey '\e[1;3D' backward-half-word
+bindkey '\e[1;3C' forward-half-word
+bindkey -s '^o' 'lfcd\n'
+
+# Neofetch
+#neofetch
+
+# Load skim completion and keybindings
+# sudo pacman -S skim
+[ -f /usr/share/skim/key-bindings.zsh ] && source /usr/share/skim/key-bindings.zsh
+[ -f /usr/share/skim/completion.zsh ] && source /usr/share/skim/completion.zsh
+
+# Load fast-syntax-highligRing
+# needs to be loaded last
+# git clone https://github.com/zdharma/fast-syntax-highlighting.git \
+#  ~/.config/zsh/plugins/fast-syntax-highlighting
+[ -f ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ] && source ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export N_PREFIX="$HOME/.n"

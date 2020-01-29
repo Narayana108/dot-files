@@ -3,8 +3,9 @@
 "---------------------------
 
 set termguicolors     " enable true colors support 
-let ayucolor="dark"   " for dark version of theme
-colorscheme ayu
+" let ayucolor="dark"   " for dark version of theme
+"colorscheme space-vim-dark
+colorscheme material-monokai
 
 " space-vim-dark {{{
 "colorscheme space-vim-dark
@@ -56,12 +57,13 @@ set incsearch       " Jump to match when searching
 set scrolloff=5     " Display 5 lines above/below the cursor when scrolling with a mouse.
 set linebreak       " Break lines at word (requires Wrap lines)
 set showbreak=+++   " Wrap-broken line prefix
-set relativenumber  " Shows numbers column on the left relative to current line
+set number relativenumber  " Shows numbers column on the left relative to current line
 filetype indent on  " Load filetype-specific indent files
 "set autoindent      " Indent when creating newline
 set showcmd         " Show command in bottom bar
 set cursorline      " Highlight current line
 set noshowmode      " Removes insert mode title
+set nohlsearch      " Turn off highlighting
 
 " Suffixes that get lower priority when doing tab completion for filenames.
 " These are files we are not likely to want to edit or read.

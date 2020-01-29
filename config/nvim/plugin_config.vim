@@ -44,5 +44,5 @@ let g:lightline = {
 "-----------------------
 " VimWiki
 "-----------------------
-let g:vimwiki_list = [{'path': '~/Documents/vimwiki/',
+let g:vimwiki_list = [{'path': '~/Lab/git/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
