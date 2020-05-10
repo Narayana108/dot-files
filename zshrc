@@ -44,7 +44,18 @@ alias \
   se="sudoedit" \
   ezsh="e ~/.zshrc" \
   eherbst="e ~/.config/herbstluftwm/autostart" \
-  evim="e ~/.config/nvim/"
+  evim="e ~/.config/nvim/" \
+  earch="e ~/.config/herbstluftwm/README.md" \
+  epoly="e ~/.config/herbstluftwm/polybar.ini"
+
+## commands
+alias \
+  cr="crystal run" \
+  gvid="youtube-dl -f 'bestvideo[height<=720]+bestaudio/best[height<=720]'  -i " \
+  gsong="youtube-dl -x --audio-format mp3 " \
+  kb-col="bash /home/narayan/.config/BigBagKbdTrixXKB/setxkb.sh 4c us us" \
+  kb-us="setxkbmap -layout 'us' -model 'geniuskkb2050hs' -v 9 -symbols pc+us+inet -option" \
+  cpwd="pwd | xclip -selection clipboard"
 
 ## Colorize commands when possible.
 alias \
@@ -53,14 +64,19 @@ alias \
   grep="grep --color=auto" \
   diff="diff --color=auto" 
 
-alias kb-col="bash /home/narayan/.config/BigBagKbdTrixXKB/setxkb.sh 4c us us"
-alias kb-us="setxkbmap -layout 'us' -model 'geniuskkb2050hs' -v 9 -symbols pc+us+inet -option"
-alias cpwd="pwd | xclip -selection clipboard"
-
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
 
 #------------------------
 # User configuration
 #-----------------------
+eval "$(fasd --init auto)"
 
 # Start ssh-agent to store ssh-key
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
@@ -475,7 +491,7 @@ setopt PROMPT_SUBST
 NEWLINE=$'\n'
 precmd() {
     vcs_info
-    FIRST_PROMPT="%(!.%F{red}root%f.%F{green}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)"
+    FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)"
 }
 
 # Feature rich prompt

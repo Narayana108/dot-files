@@ -19,10 +19,14 @@ baseDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 [ ! -d "~/.config/nvim" ] &&  mkdir -pv ~/.config/nvim
 [ ! -d "~/.config/lf" ] &&  mkdir -pv ~/.config/lf
 [ ! -d "~/.config/zathura" ] &&  mkdir -pv ~/.config/zathura
+[ ! -d "~/.config/neofetch" ] &&  mkdir -pv ~/.config/neofetch
+[ ! -d "~/.config/cava" ] &&  mkdir -pv ~/.config/cava
 [ ! -d "~/.local/bin" ] &&  mkdir -pv ~/.local/bin
 
 ln -s ${baseDir}/zshrc ~/.zshrc
 ln -s ${baseDir}/config/zathura/zathurarc ~/.config/zathura
+ln -s ${baseDir}/config/cava/config ~/.config/cava/config
+ln -s ${baseDir}/config/neofetch/config.conf ~/.config/neofetch/config.conf
 
 for i in $(ls ${baseDir}/config/nvim); do
   ln -s ${baseDir}/config/nvim/$i ~/.config/nvim

@@ -21,6 +21,8 @@
 # NeoVim
 Requires:
 - https://github.com/junegunn/vim-plug
+- https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim
+  - https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions 
 
 ![screenshot of nvim](vim.png)
 

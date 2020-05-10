@@ -15,6 +15,10 @@ Plug 'Raimondi/delimitMate' 								" Closes brackets
 Plug 'scrooloose/nerdcommenter' 						" Comment blocks for any language
 Plug 'preservim/nerdtree'                   " File browser
 Plug 'vimwiki/vimwiki'                      " notes / wiki
+Plug 'rhysd/vim-crystal'                    " crystal lang
+Plug 'KabbAmine/vCoolor.vim'                " color picker/selector directly froim vim (Requirs Zenity package)
+Plug 'lilydjwg/colorizer'                   " preview colours in source code while editing
+
 
 " Themes
 "Plug 'itchyny/lightline.vim'               " Lightweight status bar
