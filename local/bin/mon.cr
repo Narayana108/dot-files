@@ -42,7 +42,7 @@ if wifi_status == "enabled"
 end
 
 puts " ----------------------"
-puts "| ॐ  राम नारायण  ☥".colorize.cyan
+puts "| ॐ  राम नारायण  ☥"
 puts "|----------------------"
 puts "| #{date.colorize.cyan}"
 puts "|----------------------"
