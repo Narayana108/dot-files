@@ -3,7 +3,7 @@ require "colorize"
 date = Time.local.to_s("%a %d %b") # => "Sat 23 May"
 
 # Brightness
-brightness = `cat /sys/class/backlight/intel_backlight/brightness`.chomp.chomp("000")
+brightness = `cat /sys/class/backlight/intel_backlight/brightness`.chomp.chomp("000") # the first chomp removes new line
 max_brightness = `cat /sys/class/backlight/intel_backlight/max_brightness`.chomp.chomp("000")
 
 # Disk space
@@ -50,7 +50,7 @@ puts "| Brightness: #{brightness.colorize.magenta}/#{max_brightness.colorize.mag
 if wifi_net
   puts "| Wifi: #{wifi_status.colorize.light_green} - #{wifi_net.colorize.magenta}".colorize.blue
 else
-  puts "| Wifi: #{wifi_status.colorize.red}"
+  puts "| Wifi: #{wifi_status.colorize.red}".colorize.blue
 end
 puts "| Bluetooth: #{bt_status.colorize.magenta}".colorize.blue
 puts "|------------------------------------------------"
