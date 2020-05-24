@@ -59,11 +59,19 @@ alias \
 
 ## Colorize commands when possible.
 alias \
-  ls="ls -hN --color=auto --group-directories-first" \
-  ll="ls -lahN --color=auto --group-directories-first" \
   grep="grep --color=auto" \
   diff="diff --color=auto" 
+  #ls="ls -hN --color=auto --group-directories-first" \
+  #ll="ls -lahN --color=auto --group-directories-first" \
 
+# lsd
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+
+# fasd
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
 alias d='fasd -d'        # directory

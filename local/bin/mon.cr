@@ -3,8 +3,8 @@ require "colorize"
 date = Time.local.to_s("%a %d %b") # => "Sat 23 May"
 
 # Brightness
-brightness = `cat /sys/class/backlight/intel_backlight/brightness`.chomp.chomp("000") # the first chomp removes new line
-max_brightness = `cat /sys/class/backlight/intel_backlight/max_brightness`.chomp.chomp("000")
+brightness = File.read("/sys/class/backlight/intel_backlight/brightness").chomp.chomp("000")
+max_brightness = File.read("/sys/class/backlight/intel_backlight/max_brightness").chomp.chomp("000")
 
 # Disk space
 partition = "/"
@@ -32,6 +32,9 @@ bt_output.each_line do |line|
   end
 end
 
+# Battery
+battery = File.read("/sys/class/power_supply/BAT0/capacity").chomp
+
 # Wifi
 wifi_output = `nmcli general status`
 wifi_status = wifi_output.split(/\n/)[1].split[5]
@@ -46,14 +49,16 @@ puts "| ॐ  राम नारायण  ☥"
 puts "|----------------------"
 puts "| #{date.colorize.cyan}"
 puts "|----------------------"
-puts "| Brightness: #{brightness.colorize.magenta}/#{max_brightness.colorize.magenta}".colorize.blue
+puts "| #{"Brightness:".colorize.blue} #{brightness.colorize.magenta}/#{max_brightness.colorize.magenta}"
+puts "| #{"Battery:".colorize.blue} #{battery.colorize.magenta}#{"%".colorize.magenta}"
 if wifi_net
-  puts "| Wifi: #{wifi_status.colorize.light_green} - #{wifi_net.colorize.magenta}".colorize.blue
+  puts "| #{"Wifi:".colorize.blue} #{wifi_status.colorize.light_green} - #{wifi_net.colorize.magenta}"
 else
-  puts "| Wifi: #{wifi_status.colorize.red}".colorize.blue
+  puts "| #{"Wifi:".colorize.blue} #{wifi_status.colorize.red}"
 end
-puts "| Bluetooth: #{bt_status.colorize.magenta}".colorize.blue
+puts "| #{"Bluetooth:".colorize.blue} #{bt_status.colorize.magenta}"
 puts "|------------------------------------------------"
-puts "| CPU Temp\t HDD Total\t HDD Avail".colorize.blue
-puts "| #{temp}\t #{hdd_total}\t\t #{hdd_avail} (#{hdd_percent})".colorize.magenta
+puts "| #{"CPU Temp\t HDD Avail\t HDD Used".colorize.blue}"
+puts "| #{temp.colorize.magenta}\t #{hdd_avail.colorize.magenta}\t\t #{hdd_percent.colorize.magenta}"
+puts " ------------------------------------------------"
 puts " ------------------------------------------------"
