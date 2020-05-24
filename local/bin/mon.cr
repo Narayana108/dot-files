@@ -44,6 +44,7 @@ if wifi_status == "enabled"
   wifi_net = wifi_net_output.split(/\n/)[1].split[0]
 end
 
+# Print laptop details
 puts " ----------------------"
 puts "| ॐ  राम नारायण  ☥"
 puts "|----------------------"
