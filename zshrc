@@ -25,6 +25,9 @@
 
 # Executable PATH's
 export PATH=~/.local/bin:$PATH
+export GEM_HOME=/home/narayan/.gem/ruby/2.7.0
+export PATH=$GEM_HOME/bin:$PATH
+
 
 # Default programs:
 export EDITOR="nvim"
@@ -111,6 +114,16 @@ function genpass() {
   fi
     NUMBYTES=`echo $LENGTH | awk '{print int($1*1.16)+1}'`
     openssl rand -base64 $NUMBYTES | tr -d "=+/" | cut -c1-$LENGTH
+}
+
+# Check if package is installed
+function cpkg() {
+  check="$(sudo pacman -Qs "$1")" ;
+  if [ -n "${check}" ] ; then
+      echo "$1 is installed";
+  elif [ -z "${check}" ] ; then
+      echo "$1 is NOT installed";
+  fi;
 }
 
 

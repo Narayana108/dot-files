@@ -45,7 +45,7 @@ set shiftwidth=2 " when indenting with '>', use 2 spaces width
 " Reformat it with: gq
 " Learn more:
 " :h gq
-set textwidth=100
+"set textwidth=100
 " Automatic word wrapping
 " set formatoptions+=t
 " Display a warning line where the colum equals max wrap characters
