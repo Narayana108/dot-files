@@ -4,9 +4,11 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'sheerun/vim-polyglot' 						    " Syntax for 120 languages
-Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-Plug 'lotabout/skim.vim'                          " Fuzzy file searcher 
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}		" Conquer of Completion
+"Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+"Plug 'lotabout/skim.vim'                          " Fuzzy file searcher 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy file searcher
+Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}		" Conquer of Completion
 Plug 'Raimondi/delimitMate' 								" Closes brackets
 Plug 'scrooloose/nerdcommenter' 						" Comment blocks for any language
 Plug 'tpope/vim-surround' 									" Surround text with brackets easily

@@ -26,8 +26,8 @@
 # Executable PATH's
 export PATH=~/.local/bin:$PATH
 export GEM_HOME=/home/narayan/.gem/ruby/2.7.0
-export PATH=$GEM_HOME/bin:$PATH
-
+export GOPATH=$HOME/.local/go
+export PATH=$GEM_HOME/bin:$GOPATH/bin:$PATH
 
 # Default programs:
 export EDITOR="nvim"
@@ -84,6 +84,31 @@ alias sf='fasd -sif'     # interactive file selection
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias zz='fasd_cd -d -i' # cd with interactive selection
 
+# Kubernetes
+alias k="kubectl" \
+      kg="kubectl get" \
+      kd="kubectl delete" \
+      ka="kubectl apply -f"
+
+
+# Exec into pod
+kx () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local cmd=${@:-"bash"}
+
+	echo kubectl exec -it --namespace $pod[1] $pod[2] $cmd
+	kubectl exec -it --namespace $pod[1] $pod[2] $cmd
+}
+
+# Get pods logs
+kl () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local attr=${@:-""}
+
+	echo kubectl logs -f $attr --namespace $pod[1] $pod[2]
+	kubectl logs -f $attr --namespace $pod[1] $pod[2]
+}
+
 #------------------------
 # User configuration
 #-----------------------
@@ -97,7 +122,7 @@ fi
 
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 
-function lazygit() {
+function gac() {
   if [ -d .git ]; then
     git status
     git add .
@@ -554,3 +579,19 @@ bindkey -s '^o' 'lfcd\n'
 [ -f ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ] && source ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/narayan/.local/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/narayan/.local/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/narayan/.local/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/narayan/.local/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
