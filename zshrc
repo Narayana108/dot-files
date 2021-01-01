@@ -32,8 +32,8 @@ export PATH=$GEM_HOME/bin:$GOPATH/bin:$PATH
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
-#export BROWSER="qutebrowser"
-export BROWSER="/usr/bin/qutebrowser"
+#export BROWSER="/usr/bin/qutebrowser"
+export BROWSER="/usr/bin/brave"
 export READER="zathura"
 export FILE="lf"
 export LC_CTYPE="en_US.UTF-8"
@@ -87,7 +87,9 @@ alias zz='fasd_cd -d -i' # cd with interactive selection
 # Kubernetes
 alias k="kubectl" \
       kg="kubectl get" \
-      kd="kubectl delete" \
+      kd="kubectl describe" \
+      krm="kubectl delete" \
+      klo="kubectl logs -f"
       ka="kubectl apply -f"
 
 
@@ -534,18 +536,25 @@ parse_git_branch() {
 }
 setopt PROMPT_SUBST
 
+# Display k8s namespace and cluster
+source ~/Lab/git/dot-files/config/zsh-plugins/kubectl.zsh
+# zstyle ':zsh-kubectl-prompt:' namespace false
+#RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
+
 NEWLINE=$'\n'
 precmd() {
     vcs_info
-    FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)"
+    FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)%{$fg[cyan]%}@ $ZSH_KUBECTL_PROMPT%{$reset_color%}"
 }
 
+#FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)"
 # Feature rich prompt
 PROMPT='$FIRST_PROMPT${NEWLINE}%(?.%F{green}.%F{red})❯%f '
 # Minimal host and user prompt
 #PROMPT="%B%{$fg[red]%}[%{$fg[magenta]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 # Minimal git prompt
 #PROMPT='%B%{$fg[magenta]%}%9c%b%{%F{blue}%} $(parse_git_branch)%{%F{none}%}%{$reset_color%} ❯ '
+
 
 # Bindkeys
 bindkey -e
@@ -582,16 +591,16 @@ bindkey -s '^o' 'lfcd\n'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/narayan/.local/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/narayan/.local/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/narayan/.local/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/narayan/.local/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+#__conda_setup="$('/home/narayan/.local/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+    #eval "$__conda_setup"
+#else
+    #if [ -f "/home/narayan/.local/miniconda3/etc/profile.d/conda.sh" ]; then
+        #. "/home/narayan/.local/miniconda3/etc/profile.d/conda.sh"
+    #else
+        #export PATH="/home/narayan/.local/miniconda3/bin:$PATH"
+    #fi
+#fi
+#unset __conda_setup
 # <<< conda initialize <<<
 
