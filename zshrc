@@ -32,7 +32,7 @@ export PATH=$GEM_HOME/bin:$GOPATH/bin:$PATH
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
-#export BROWSER="qutebrowser"
+#export BROWSER="/usr/bin/qutebrowser"
 export BROWSER="/usr/bin/brave"
 export READER="zathura"
 export FILE="lf"
@@ -547,13 +547,20 @@ parse_git_branch() {
 }
 setopt PROMPT_SUBST
 
+# Display k8s namespace and cluster
+source ~/Lab/git/dot-files/config/zsh-plugins/kubectl.zsh
+# zstyle ':zsh-kubectl-prompt:' namespace false
+#RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
+
 NEWLINE=$'\n'
 precmd() {
     source ~/Lab/git/dot-files/kube-ps1.sh
     vcs_info
-    FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j. $(kube_ps1))"
+    #FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j. $(kube_ps1))"
+    FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)%{$fg[cyan]%}@ $ZSH_KUBECTL_PROMPT%{$reset_color%}"
 }
 
+#FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)"
 # Feature rich prompt
 PROMPT='${FIRST_PROMPT}${NEWLINE}%(?.%F{green}.%F{red})❯%f '
 # Minimal host and user prompt
@@ -561,6 +568,7 @@ PROMPT='${FIRST_PROMPT}${NEWLINE}%(?.%F{green}.%F{red})❯%f '
 # Minimal git prompt
 #PROMPT='%B%{$fg[magenta]%}%9c%b%{%F{blue}%} $(parse_git_branch)%{%F{none}%}%{$reset_color%} ❯ '
 #PROMPT=$PROMPT'$(kube_ps1)'
+
 
 # Bindkeys
 bindkey -e
@@ -596,7 +604,5 @@ bindkey -s '^o' 'lfcd\n'
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /home/narayana/.config/zsh/plugins/fzf-zsh-completion.sh ] && source /home/narayana/.config/zsh/plugins/fzf-zsh-completion.sh
 
-
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
 export PATH=$PATH:/home/narayana/bin
