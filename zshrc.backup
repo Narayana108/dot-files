@@ -596,7 +596,6 @@ bindkey -s '^o' 'lfcd\n'
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /home/narayana/.config/zsh/plugins/fzf-zsh-completion.sh ] && source /home/narayana/.config/zsh/plugins/fzf-zsh-completion.sh
 
+#source '/home/narayana/Lab/tmp/az.completion'
 
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-export PATH=$PATH:/home/narayana/bin
+ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
