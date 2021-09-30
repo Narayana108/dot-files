@@ -1,426 +1,162 @@
-# hikari-zsh -  A pure and minimalistic zsh with special shortcuts
-#
-# Copyright (c) 2019 by Christian Rebischke <chris@nullday.de>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http: #www.gnu.org/licenses/
-#
-#======================================================================
-# Author: Christian Rebischke
-# Email : chris@nullday.de
-# Github: www.github.com/Shibumi
-
-# load $HOME/.zshrc.pre to overwrite defaults
-[[ -r ${HOME}/.zshrc.pre ]] && source ${HOME}/.zshrc.pre
-
-# Executable PATH's
-export PATH=~/.local/bin:$PATH
-export GEM_HOME=/home/narayan/.gem/ruby/2.7.0
-export GOPATH=$HOME/.local/go
-export PATH=$GEM_HOME/bin:$GOPATH/bin:$PATH
-
-# Default programs:
-export EDITOR="nvim"
-export TERMINAL="st"
-#export BROWSER="/usr/bin/qutebrowser"
-export BROWSER="/usr/bin/brave"
-export READER="zathura"
-export FILE="lf"
-export LC_CTYPE="en_US.UTF-8"
-
-# Aliases
-## Edit
-alias \
-  f="$FILE" \
-  e="$EDITOR" \
-  se="sudoedit" \
-  ezsh="e ~/.zshrc" \
-  eherbst="e ~/.config/herbstluftwm/autostart" \
-  evim="e ~/.config/nvim/" \
-  earch="e ~/.config/herbstluftwm/README.md" \
-  epoly="e ~/.config/herbstluftwm/polybar.ini"
-
-## commands
-alias \
-  cr="crystal run" \
-  gvid="youtube-dl -f 'bestvideo[height<=720]+bestaudio/best[height<=720]'  -i " \
-  gsong="youtube-dl -x --audio-format mp3 " \
-  kb-col="bash /home/narayana/.config/BigBagKbdTrixXKB/setxkb.sh 4c us us" \
-  kb-us="setxkbmap -layout 'us' -model 'geniuskkb2050hs' -v 9 -symbols pc+us+inet -option" \
-  cpwd="pwd | xclip -selection clipboard"
-
-## Colorize commands when possible.
-alias \
-  grep="grep --color=auto" \
-  diff="diff --color=auto" 
-  #ls="ls -hN --color=auto --group-directories-first" \
-  #ll="ls -lahN --color=auto --group-directories-first" \
-
-# lsd
-alias ls='lsd'
-alias l='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-alias lt='ls --tree'
-
-# fasd
-alias a='fasd -a'        # any
-alias s='fasd -si'       # show / search / select
-alias d='fasd -d'        # directory
-alias f='fasd -f'        # file
-alias sd='fasd -sid'     # interactive directory selection
-alias sf='fasd -sif'     # interactive file selection
-alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-alias zz='fasd_cd -d -i' # cd with interactive selection
-
-# Kubernetes
-alias k="kubectl" \
-      kg="kubectl get" \
-      kd="kubectl describe" \
-      krm="kubectl delete" \
-      klo="kubectl logs -f" \
-      ke="kubectl exec -it " \
-      ka="kubectl apply -f"
-
-keb () {
-  kubectl exec -it $1 -- bash
-}
-
-kimaged () {
-  kubectl get deployment $1 --output=json | jq .spec.template.spec.containers[].image
-}
-
-kimages () {
-  kubectl get statefulsets $1 --output=json | jq .spec.template.spec.containers[].image
-}
-
-# Exec into pod
-kx () {
-	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
-	local cmd=${@:-"bash"}
-
-	echo kubectl exec -it --namespace $pod[1] $pod[2] $cmd
-	kubectl exec -it --namespace $pod[1] $pod[2] $cmd
-}
-
-# Get pods logs
-kl () {
-	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
-	local attr=${@:-""}
-
-	echo kubectl logs -f $attr --namespace $pod[1] $pod[2]
-	kubectl logs -f $attr --namespace $pod[1] $pod[2]
-}
-
-#------------------------
-# User configuration
-#-----------------------
-eval "$(fasd --init auto)"
-
-# Start ssh-agent to store ssh-key
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-  eval `ssh-agent`
-  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-function gac() {
-  if [ -d .git ]; then
-    git status
-    git add .
-    git commit -a -m "$1"
-    git push
-  fi;
-}
+# Set $PATH if ~/.local/bin exist
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH=$HOME/.local/bin:$PATH
+fi
 
-function genpass() {
-  #openssl rand -base64 29 | tr -d "=+/" | cut -c1-25
-  LENGTH=25
-  if [ ! -z "$1" ] && [ $1 -gt 1 ]; then
-    LENGTH=$1
-  fi
-    NUMBYTES=`echo $LENGTH | awk '{print int($1*1.16)+1}'`
-    openssl rand -base64 $NUMBYTES | tr -d "=+/" | cut -c1-$LENGTH
-}
-
-# Check if package is installed
-function cpkg() {
-  check="$(sudo pacman -Qs "$1")" ;
-  if [ -n "${check}" ] ; then
-      echo "$1 is installed";
-  elif [ -z "${check}" ] ; then
-      echo "$1 is NOT installed";
-  fi;
-}
+export GOPATH=$HOME/.local/go
+export PATH=$PATH:$(go env GOPATH)/bin
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 
-# Colors in lesesas (Red)
-export LESS_TERMCAP_m=b$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
+# Activate powerlevel10k theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# Color man pages (Green)
-#export LESS_TERMCAP_mb=$'\E[01;32m'
-#export LESS_TERMCAP_md=$'\E[01;32m'
-#export LESS_TERMCAP_me=$'\E[0m'
-#export LESS_TERMCAP_se=$'\E[0m'
-#export LESS_TERMCAP_so=$'\E[01;47;34m'
-#export LESS_TERMCAP_ue=$'\E[0m'
-#export LESS_TERMCAP_us=$'\E[01;36m'
-#export LESS=-r
+## Plugins section: Enable fish style features
+# Use syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Use autosuggestion
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Use history substring search
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# Use fzf
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+# Arch Linux command-not-found support, you must have package pkgfile installed
+# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
+[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
 
 
-
-# Setopts
-# allow prompt substitution
-setopt prompt_subst
-# append history list to the history file; this is the default but we make sure
-# because it's required for share_history.
-setopt append_history
-# import new commands from the history file also in other zsh-session
-setopt share_history
-# save each command's beginning timestamp and the duration to the history file
-setopt extended_history
-# If a new command line being added to the history list duplicates an older
-# one, the older command is removed from the list
-setopt histignorealldups
-# remove command lines from the history list when the first character on the
-# line is a space
-setopt histignorespace
-# in order to use #, ~ and ^ for filename generation grep word
-# *~(*.gz|*.bz|*.bz2|*.zip|*.Z) -> searches for word not in compressed files
-# don't forget to quote '^', '~' and '#'!
-setopt extended_glob
-# display PID when suspending processes as well
-setopt longlistjobs
-# try to avoid the 'zsh: no matches found...'
-setopt nonomatch
-# report the status of backgrounds jobs immediately
-setopt notify
-# whenever a command completion is attempted, make sure the entire command path
-# is hashed first.
-setopt hash_list_all
-# not just at the end
-setopt completeinword
-# Don't send SIGHUP to background processes when the shell exits.
-setopt nohup
-# make cd push the old directory onto the directory stack.
+## Options section
+setopt correct                                                  # Auto correct mistakes
+setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
+setopt nocaseglob                                               # Case insensitive globbing
+setopt rcexpandparam                                            # Array expension with parameters
+setopt nocheckjobs                                              # Don't warn about running processes when exiting
+setopt numericglobsort                                          # Sort filenames numerically when it makes sense
+setopt nobeep                                                   # No beep
+setopt appendhistory                                            # Immediately append history instead of overwriting
+setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
+setopt autocd                                                   # if only directory path is entered, cd there.
 setopt auto_pushd
-# avoid "beep"ing
-setopt nobeep
-# don't push the same dir twice.
 setopt pushd_ignore_dups
-# * shouldn't match dotfiles. ever.
-setopt noglobdots
-# use zsh style word splitting
-setopt noshwordsplit
-# enable dir-stack
-setopt autopushd pushdminus pushdsilent pushdtohome
-# Remove duplicate entries
-setopt pushdignoredups
-# Shortcuts for directories e.g. hash -d
-setopt autocd
-# enable interactivecomments
-setopt interactivecomments
-# Disable flowcontrol
-stty -ixon
+setopt pushdminus
 
-# Autoload
-autoload -Uz colors && colors
-autoload -Uz vcs_info
+
+
+# Completion.
 autoload -Uz compinit
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
+zstyle ':completion:*' rehash true                              # automatically find new executables in path 
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 
-# History Settings
-HISTSIZE=1000000
-SAVEHIST=9000000
-HISTFILE=~/.config/zsh_history
-TIMEFMT="'$fg[green]%J$reset_color' time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
-REPORTTIME=10
 
-# zstyles
-zstyle ':completion:*' menu select
-zstyle ':vcs_info:*' enable git svn
-zstyle ':vcs_info:git*:*' get-revision true
-zstyle ':vcs_info:git*:*' check-for-changes false
-zstyle ':vcs_info:git*' formats "%8.8i %b "
-zstyle ':vcs_info:git*' actionformats "%8.8i %b %F{red}%a %m%f "
-zstyle ':vcs_info:git*' patch-format "%8.8p "
-zstyle ':vcs_info:svn*:*' get-revision true
-zstyle ':vcs_info:svn*:*' check-for-changes false
-zstyle ':vcs_info:svn*' formats "%b %m "
-zstyle ':vcs_info:svn*' actionformats "%b/%a %m "
-zle -C hist-complete complete-word _generic
-zstyle ':completion:hist-complete:*' completer _history
-zle -N insert-files
-zstyle ':completion:*:*:cd:*' tag-order '!users' -
+# Speed up completions
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.cache/zcache
 
-# completion
-function grmlcomp () {
-    # Make sure the completion system is initialised
-    (( ${+_comps} )) || return 1
-    # allow one error for every three characters typed in approximate completer
-    zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
-    # don't complete backup files as executables
-    zstyle ':completion:*:complete:-command-::commands' ignored-patterns '(aptitude-*|*\~)'
-    # start menu completion only if it could find no unambiguous initial string
-    zstyle ':completion:*:correct:*'       insert-unambiguous true
-    zstyle ':completion:*:corrections'     format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
-    zstyle ':completion:*:correct:*'       original true
-    # activate color-completion
-    zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
-    # format on completion
-    zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
-    # automatically complete 'cd -<tab>' and 'cd -<ctrl-d>' with menu
-    # zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
-    # insert all expansions for expand completer
-    zstyle ':completion:*:expand:*'        tag-order all-expansions
-    zstyle ':completion:*:history-words'   list false
-    # activate menu
-    zstyle ':completion:*:history-words'   menu yes
-    # ignore duplicate entries
-    zstyle ':completion:*:history-words'   remove-all-dups yes
-    zstyle ':completion:*:history-words'   stop yes
-    # match case insensitive
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
-    # separate matches into groups
-    zstyle ':completion:*:matches'         group 'yes'
-    zstyle ':completion:*'                 group-name ''
-    if [[ "$NOMENU" -eq 0 ]] ; then
-        # if there are more than 5 options allow selecting from a menu
-        zstyle ':completion:*'               menu select=5
-    else
-        # don't use any menus at all
-        setopt no_auto_menu
-    fi
-    zstyle ':completion:*:messages'        format '%d'
-    zstyle ':completion:*:options'         auto-description '%d'
-    # describe options in full
-    zstyle ':completion:*:options'         description 'yes'
-    # on processes completion complete all user processes
-    zstyle ':completion:*:processes'       command 'ps -au$USER'
-    # offer indexes before parameters in subscripts
-    zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-    # provide verbose completion information
-    zstyle ':completion:*'                 verbose true
-    # recent (as of Dec 2007) zsh versions are able to provide descriptions
-    # for commands (read: 1st word in the line) that it will list for the user
-    # to choose from. The following disables that, because it's not exactly fast.
-    zstyle ':completion:*:-command-:*:'    verbose false
-    # set format for warnings
-    zstyle ':completion:*:warnings'        format $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
-    # define files to ignore for zcompile
-    zstyle ':completion:*:*:zcompile:*'    ignored-patterns '(*~|*.zwc)'
-    zstyle ':completion:correct:'          prompt 'correct to: %e'
-    # Ignore completion functions for commands you don't have:
-    zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
-    # Provide more processes in completion of programs like killall:
-    zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
-    # complete manual by their section
-    zstyle ':completion:*:manuals'    separate-sections true
-    zstyle ':completion:*:manuals.*'  insert-sections   true
-    zstyle ':completion:*:man:*'      menu yes select
-    # Search path for sudo completion
-    zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
-                                               /usr/local/bin  \
-                                               /usr/sbin       \
-                                               /usr/bin        \
-                                               /sbin           \
-                                               /bin            \
-                                               /usr/X11R6/bin
+# automatically load bash completion functions
+autoload -U +X bashcompinit && bashcompinit
 
-    # provide .. as a completion
-    zstyle ':completion:*' special-dirs ..
-    # run rehash on completion so new installed program are found automatically:
-    function _force_rehash () {
-        (( CURRENT == 1 )) && rehash
-        return 1
-    }
-    # correction
-    # some people don't like the automatic correction - so run 'NOCOR=1 zsh' to deactivate it
-    if [[ "$NOCOR" -gt 0 ]] ; then
-        zstyle ':completion:*' completer _oldlist _expand _force_rehash _complete _files _ignored
-        setopt nocorrect
-    else
-        # try to be smart about when to use what completer...
-        setopt correct
-        zstyle -e ':completion:*' completer '
-            if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]] ; then
-                _last_try="$HISTNO$BUFFER$CURSOR"
-                reply=(_complete _match _ignored _prefix _files)
-            else
-                if [[ $words[1] == (rm|mv) ]] ; then
-                    reply=(_complete _files)
-                else
-                    reply=(_oldlist _expand _force_rehash _complete _ignored _correct _approximate _files)
-                fi
-            fi'
-    fi
-    # command for process lists, the local web server details and host completion
-    zstyle ':completion:*:urls' local 'www' '/var/www/' 'public_html'
-    # Some functions, like _apt and _dpkg, are very slow. We can use a cache in
-    # order to speed things up
-    if [[ ${GRML_COMP_CACHING:-yes} == yes ]]; then
-        GRML_COMP_CACHE_DIR=${GRML_COMP_CACHE_DIR:-${ZDOTDIR:-$HOME}/.cache}
-        if [[ ! -d ${GRML_COMP_CACHE_DIR} ]]; then
-            command mkdir -p "${GRML_COMP_CACHE_DIR}"
-        fi
-        zstyle ':completion:*' use-cache  yes
-        zstyle ':completion:*:complete:*' cache-path "${GRML_COMP_CACHE_DIR}"
-    fi
-    # host completion
-    if [[ $ZSH_VERSION == 4.<2->* || $ZSH_VERSION == <5->* ]] ; then
-        [[ -r ~/.ssh/config ]] && _ssh_config_hosts=(${${(s: :)${(ps:\t:)${${(@M)${(f)"$(<$HOME/.ssh/config)"}:#Host *}#Host }}}:#*[*?]*}) || _ssh_config_hosts=()
-        [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
-        [[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
-    else
-        _ssh_config_hosts=()
-        _ssh_hosts=()
-        _etc_hosts=()
-    fi
-    hosts=(
-        $(hostname)
-        "$_ssh_config_hosts[@]"
-        "$_ssh_hosts[@]"
-        "$_etc_hosts[@]"
-        localhost
-    )
-    zstyle ':completion:*:hosts' hosts $hosts
-    # see upgrade function in this file
-    compdef _hosts upgrade
-}
-# completion dump file
-COMPDUMPFILE=${COMPDUMPFILE:-${ZDOTDIR:-${HOME}}/.zcompdump}
-# activate completion
-grmlcomp
-compinit -d ${COMPDUMPFILE} || print 'Notice: no compinit available :('
+HISTFILE=~/.zhistory
+HISTSIZE=50000
+SAVEHIST=10000
 
-# Smart Functions
-# smart cd function, allows switching to /etc when running 'cd /etc/fstab'
-function cd () {
-    if (( ${#argv} == 1 )) && [[ -f ${1} ]]; then
-        [[ ! -e ${1:h} ]] && return 1
-        print "Correcting ${1} to ${1:h}"
-        builtin cd ${1:h}
-    else
-        builtin cd "$@"
-    fi
-}
+# Keys.
+# Use emacs key bindings
+bindkey -e
 
+# [PageUp] - Up a line of history
+if [[ -n "${terminfo[kpp]}" ]]; then
+  bindkey -M emacs "${terminfo[kpp]}" up-line-or-history
+  bindkey -M viins "${terminfo[kpp]}" up-line-or-history
+  bindkey -M vicmd "${terminfo[kpp]}" up-line-or-history
+fi
+# [PageDown] - Down a line of history
+if [[ -n "${terminfo[knp]}" ]]; then
+  bindkey -M emacs "${terminfo[knp]}" down-line-or-history
+  bindkey -M viins "${terminfo[knp]}" down-line-or-history
+  bindkey -M vicmd "${terminfo[knp]}" down-line-or-history
+fi
+
+# Start typing + [Up-Arrow] - fuzzy find history forward
+if [[ -n "${terminfo[kcuu1]}" ]]; then
+  autoload -U up-line-or-beginning-search
+  zle -N up-line-or-beginning-search
+
+  bindkey -M emacs "${terminfo[kcuu1]}" up-line-or-beginning-search
+  bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+  bindkey -M vicmd "${terminfo[kcuu1]}" up-line-or-beginning-search
+fi
+# Start typing + [Down-Arrow] - fuzzy find history backward
+if [[ -n "${terminfo[kcud1]}" ]]; then
+  autoload -U down-line-or-beginning-search
+  zle -N down-line-or-beginning-search
+
+  bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
+  bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
+  bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
+fi
+
+# [Home] - Go to beginning of line
+if [[ -n "${terminfo[khome]}" ]]; then
+  bindkey -M emacs "${terminfo[khome]}" beginning-of-line
+  bindkey -M viins "${terminfo[khome]}" beginning-of-line
+  bindkey -M vicmd "${terminfo[khome]}" beginning-of-line
+fi
+# [End] - Go to end of line
+if [[ -n "${terminfo[kend]}" ]]; then
+  bindkey -M emacs "${terminfo[kend]}"  end-of-line
+  bindkey -M viins "${terminfo[kend]}"  end-of-line
+  bindkey -M vicmd "${terminfo[kend]}"  end-of-line
+fi
+
+# [Shift-Tab] - move through the completion menu backwards
+if [[ -n "${terminfo[kcbt]}" ]]; then
+  bindkey -M emacs "${terminfo[kcbt]}" reverse-menu-complete
+  bindkey -M viins "${terminfo[kcbt]}" reverse-menu-complete
+  bindkey -M vicmd "${terminfo[kcbt]}" reverse-menu-complete
+fi
+
+# [Backspace] - delete backward
+bindkey -M emacs '^?' backward-delete-char
+bindkey -M viins '^?' backward-delete-char
+bindkey -M vicmd '^?' backward-delete-char
+# [Delete] - delete forward
+if [[ -n "${terminfo[kdch1]}" ]]; then
+  bindkey -M emacs "${terminfo[kdch1]}" delete-char
+  bindkey -M viins "${terminfo[kdch1]}" delete-char
+  bindkey -M vicmd "${terminfo[kdch1]}" delete-char
+else
+  bindkey -M emacs "^[[3~" delete-char
+  bindkey -M viins "^[[3~" delete-char
+  bindkey -M vicmd "^[[3~" delete-char
+
+  bindkey -M emacs "^[3;5~" delete-char
+  bindkey -M viins "^[3;5~" delete-char
+  bindkey -M vicmd "^[3;5~" delete-char
+fi
+
+# terminal keys
 # Behaviour
 # custom keybindings for string operations
 toggleSingleString() {
@@ -465,6 +201,22 @@ forward-half-word () {
 }
 zle -N forward-half-word
 
+# Bindkeys
+bindkey -e
+bindkey '\e[1;5C' forward-word
+bindkey '\e[1;5D' backward-word
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+bindkey "^xd" insert-datestamp
+bindkey "^xs" sudo-command-line
+bindkey "^x1" jump_after_first_word
+bindkey "^x'" toggleSingleString
+bindkey '^x"' toggleDoubleString
+bindkey '^x;' clearString
+bindkey '^[^?' backward-kill-dir
+bindkey '\e[1;3D' backward-half-word
+bindkey '\e[1;3C' forward-half-word
+
 # run command line as user root via sudo:
 function sudo-command-line () {
     [[ -z $BUFFER ]] && zle up-history
@@ -493,116 +245,197 @@ function jump_after_first_word () {
 }
 zle -N jump_after_first_word
 
-# Use lf to switch directories and bind it to ctrl-o
-# https://github.com/gokcehan/lf
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        if [ -d "$dir" ]; then
-            if [ "$dir" != "$(pwd)" ]; then
-                cd "$dir"
-            fi
-        fi
-    fi
+# Add useful aliases 
+alias aup="pamac upgrade --aur"
+alias grubup="sudo update-grub"
+alias orphaned="sudo pacman -Rns $(pacman -Qtdq)"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias untar='tar -zxvf '
+alias wget='wget -c '
+alias speed='speedtest-cli --server 2406 --simple'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias path='echo -e ${PATH//:/\\n}'
+# Set your countries like --country France --country Germany -- or more.
+alias upd='sudo reflector --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist && sudo pacman -Syu'
+
+# Default programs:
+export BROWSER='/usr/bin/brave'
+export EDITOR='nvim'
+
+# rehive
+alias r-production3='gcloud compute start-iap-tunnel gke-production3-bastion 8888 \
+    --local-host-port=localhost:8124 \
+    --zone=europe-west4-a'
+alias r-staging3='gcloud compute start-iap-tunnel gke-staging3-bastion 8888 \
+    --local-host-port=localhost:8123 \
+    --zone=europe-west4-a'
+
+# app alias's
+alias \
+  gvid="youtube-dl -f 'bestvideo[height<=720]+bestaudio/best[height<=720]'  -i " \
+  gsong="youtube-dl -x --audio-format mp3 " \
+  kb-col="bash /home/narayana/.config/BigBagKbdTrixXKB/setxkb.sh 4ca us us" \
+  kb-us="setxkbmap -layout 'us' -model 'geniuskkb2050hs' -v 9 -symbols pc+us+inet -option" \
+  cpwd="pwd | xclip -selection clipboard" \
+  ezsh="nvim ~/.zshrc" \
+  envim="nvim ~/.config/nvim" \
+  e="nvim"
+
+# lsd
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+
+# fasd
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
+
+# Kubernetes
+alias k="kubectl" \
+      kg="kubectl get" \
+      kd="kubectl describe" \
+      krm="kubectl delete" \
+      klo="kubectl logs -f" \
+      ke="kubectl exec -it " \
+      ka="kubectl apply -f"
+
+alias mpvm='mpv --vo=null --video=no --no-video --term-osd-bar --no-resume-playback'
+
+kec () {
+  kubectl exec -it $1 -- cat config/gunicorn.py
 }
 
+keb () {
+  kubectl exec -it $1 -- bash
+}
 
-# Custom Prompt
+kimaged () {
+  kubectl get deployment $1 --output=json | jq .spec.template.spec.containers[].image
+}
 
-if [[ ! -f ~/.config/zsh/zshcolor ]]; then
-	declare -a colors
-	colors=('cyan' 'green' 'yellow' 'magenta' 'red' 'blue')
-	host_hash=$(hostname | md5sum | tr -d '[a-fA-F]' | cut -d ' ' -f 1 | head -c 5)
-	prompt_color=$colors[$((host_hash % ${#colors[@]} + 1))]
-	echo -n $prompt_color > ~/.zshcolor
-else
-	prompt_color=$(cat ~/.config/zsh/zshcolor)
+kimages () {
+  kubectl get statefulsets $1 --output=json | jq .spec.template.spec.containers[].image
+}
+
+# Exec into pod
+kx () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local cmd=${@:-"bash"}
+
+	echo kubectl exec -it --namespace $pod[1] $pod[2] $cmd
+	kubectl exec -it --namespace $pod[1] $pod[2] $cmd
+}
+
+# Get pods logs
+kl () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local attr=${@:-""}
+
+	echo kubectl logs -f $attr --namespace $pod[1] $pod[2]
+	kubectl logs -f $attr --namespace $pod[1] $pod[2]
+}
+
+ks () {
+ kubectl get secrets $1 -o yaml | ksd
+}
+
+# Copy file to clipboard
+cc () {
+  cat $1 | xclip -i -selection clipboard
+}
+
+#------------------------
+# User configuration
+#-----------------------
+eval "$(fasd --init auto)"
+
+# Start ssh-agent to store ssh-key
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  eval `ssh-agent`
+  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
 fi
 
-prompt_dir_writeable() {
-    if [ -w $PWD ]; then
-        echo "blue"
-    else
-        echo "red"
-    fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+
+function gac() {
+  if [ -d .git ]; then
+    git status
+    git add .
+    git commit -s -a -m "$1"
+    git push
+  fi;
 }
 
-prompt_git_dirty() {
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        if [ -z "$(command git status --porcelain --ignore-submodules -unormal)" ]; then
-            echo "green"
-        else
-            echo "yellow"
-        fi
-    else
-        echo "blue"
-    fi
-
-}
-parse_git_branch() {
-    git symbolic-ref --short HEAD 2> /dev/null
-}
-setopt PROMPT_SUBST
-
-# Display k8s namespace and cluster
-source ~/Lab/git/dot-files/config/zsh-plugins/kubectl.zsh
-# zstyle ':zsh-kubectl-prompt:' namespace false
-#RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
-
-NEWLINE=$'\n'
-precmd() {
-    source ~/Lab/git/dot-files/kube-ps1.sh
-    vcs_info
-    #FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j. $(kube_ps1))"
-    FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)%{$fg[cyan]%}@ $ZSH_KUBECTL_PROMPT%{$reset_color%}"
+function genpass() {
+  #openssl rand -base64 29 | tr -d "=+/" | cut -c1-25
+  LENGTH=25
+  if [ ! -z "$1" ] && [ $1 -gt 1 ]; then
+    LENGTH=$1
+  fi
+    NUMBYTES=`echo $LENGTH | awk '{print int($1*1.16)+1}'`
+    openssl rand -base64 $NUMBYTES | tr -d "=+/" | cut -c1-$LENGTH
 }
 
-#FIRST_PROMPT="%(!.%F{red}root%f.%F{magenta}$USER%f) %F{$prompt_color}%m%f %F{$(prompt_dir_writeable)}%~%f %* %F{$(prompt_git_dirty)}${vcs_info_msg_0_}%f %(1j.%j.)"
-# Feature rich prompt
-PROMPT='${FIRST_PROMPT}${NEWLINE}%(?.%F{green}.%F{red})❯%f '
-# Minimal host and user prompt
-#PROMPT="%B%{$fg[red]%}[%{$fg[magenta]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-# Minimal git prompt
-#PROMPT='%B%{$fg[magenta]%}%9c%b%{%F{blue}%} $(parse_git_branch)%{%F{none}%}%{$reset_color%} ❯ '
-#PROMPT=$PROMPT'$(kube_ps1)'
+# Check if package is installed
+function cpkg() {
+  check="$(sudo pacman -Qs "$1")" ;
+  if [ -n "${check}" ] ; then
+      echo "$1 is installed";
+  elif [ -z "${check}" ] ; then
+      echo "$1 is NOT installed";
+  fi;
+}
 
 
-# Bindkeys
-bindkey -e
-bindkey '\e[1;5C' forward-word
-bindkey '\e[1;5D' backward-word
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
-bindkey "^xd" insert-datestamp
-bindkey "^xs" sudo-command-line
-bindkey "^x1" jump_after_first_word
-bindkey "^x'" toggleSingleString
-bindkey '^x"' toggleDoubleString
-bindkey '^x;' clearString
-bindkey '^[^?' backward-kill-dir
-bindkey '\e[1;3D' backward-half-word
-bindkey '\e[1;3C' forward-half-word
-bindkey -s '^o' 'lfcd\n'
+# Colors in lesesas (Red)
+export LESS_TERMCAP_m=b$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
 
-# Neofetch
-#neofetch
+# Color man pages (Green)
+#export LESS_TERMCAP_mb=$'\E[01;32m'
+#export LESS_TERMCAP_md=$'\E[01;32m'
+#export LESS_TERMCAP_me=$'\E[0m'
+#export LESS_TERMCAP_se=$'\E[0m'
+#export LESS_TERMCAP_so=$'\E[01;47;34m'
+#export LESS_TERMCAP_ue=$'\E[0m'
+#export LESS_TERMCAP_us=$'\E[01;36m'
+#export LESS=-r
 
-# Load skim completion and keybindings
-# sudo pacman -S skim
-[ -f /usr/share/skim/key-bindings.zsh ] && source /usr/share/skim/key-bindings.zsh
-[ -f /usr/share/skim/completion.zsh ] && source /usr/share/skim/completion.zsh
+# echo $(lsb_release -is) $(uname -srm)
+(cat ~/.cache/wal/sequences &)
 
-# Load fast-syntax-highligRing
-# needs to be loaded last
-# git clone https://github.com/zdharma/fast-syntax-highlighting.git \
-#  ~/.config/zsh/plugins/fast-syntax-highlighting
-[ -f ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ] && source ~/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /home/narayana/.config/zsh/plugins/fzf-zsh-completion.sh ] && source /home/narayana/.config/zsh/plugins/fzf-zsh-completion.sh
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/narayana/Work/google-cloud-sdk/path.zsh.inc' ]; then . '/home/narayana/Work/google-cloud-sdk/path.zsh.inc'; fi
 
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export PATH=$PATH:/home/narayana/bin
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/narayana/Work/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/narayana/Work/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH=$PATH:/home/narayana/.local/bin
+export PATH=$PATH:/home/narayana/.local/share/gem/ruby/3.0.0/bin
+
+source '/home/narayana/.local/lib/azure-cli/az.completion'

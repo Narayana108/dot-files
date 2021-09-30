@@ -25,12 +25,14 @@ Plug 'rhysd/vim-crystal'                    " crystal lang
 Plug 'elorest/vim-slang'                    " slang syntax
 Plug 'KabbAmine/vCoolor.vim'                " color picker/selector directly froim vim (Requirs Zenity package)
 Plug 'lilydjwg/colorizer'                   " preview colours in source code while editing
+Plug 'mhinz/vim-mix-format'                 " Elixir code formatter
 
 
 " Themes
 "Plug 'itchyny/lightline.vim'               " Lightweight status bar
 Plug 'ap/vim-buftabline'                    " Minimal buffer status bar
 Plug 'skielbasa/vim-material-monokai'       " Theme
+Plug 'dylanaraps/wal.vim'                   " Use pywal colours as theme
 "Plug 'liuchengxu/space-vim-dark'           " Theme
 "Plug 'ayu-theme/ayu-vim'                   " Theme
 

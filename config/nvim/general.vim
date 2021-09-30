@@ -3,6 +3,7 @@
 "---------------------------
 
 set termguicolors     " enable true colors support 
+
 " let ayucolor="dark"   " for dark version of theme
 "colorscheme space-vim-dark
 colorscheme material-monokai
@@ -11,9 +12,9 @@ colorscheme material-monokai
 "colorscheme space-vim-dark
 
 " Transparent background
-"hi Normal     ctermbg=NONE guibg=NONE
-"hi LineNr     ctermbg=NONE guibg=NONE
-"hi SignColumn ctermbg=NONE guibg=NONE
+hi Normal     ctermbg=NONE guibg=NONE
+hi LineNr     ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
 
 " Grey comments
 "hi Comment guifg=#5C6370 ctermfg=59
@@ -64,7 +65,7 @@ set number relativenumber  " Shows numbers column on the left relative to curren
 filetype indent on  " Load filetype-specific indent files
 "set autoindent      " Indent when creating newline
 set showcmd         " Show command in bottom bar
-set cursorline      " Highlight current line
+"set cursorline      " Highlight current line
 set noshowmode      " Removes insert mode title
 set nohlsearch      " Turn off highlighting
 
