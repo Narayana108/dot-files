@@ -5,16 +5,16 @@ echo "Creating symlinks..."
 baseDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Create dir if does not exist
-#[ ! -d "~/.mpd/" ] &&  mkdir -p ~/.mpd
-#[ ! -d "~/.ncmpcpp/" ] &&  mkdir -p ~/.ncmpcpp
-#[ ! -d "~/Music/mpd-playlists" ] &&  mkdir -p ~/Music/mpd-playlists \ 
-#&& touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate} \
-#&& chmod 774 ~/Music/mpd-playlists  ~/.mpd
+[ ! -d "~/.mpd/" ] &&  mkdir -p ~/.mpd
+[ ! -d "~/.ncmpcpp/" ] &&  mkdir -p ~/.ncmpcpp
+[ ! -d "~/Music/mpd-playlists" ] &&  mkdir -p ~/Music/mpd-playlists \
+  && touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate} \
+  && chmod 774 ~/Music/mpd-playlists  ~/.mpd
 
 # sudo gpasswd -a mpd audio
 # sudo gpasswd -a mpd <your login group>
 
-#[ ! -d "~/Music/lyrics" ] &&  mkdir -pv ~/Music/lyrics
+[ ! -d "~/Music/lyrics" ] &&  mkdir -pv ~/Music/lyrics
 
 [ ! -d "~/.config/nvim" ] &&  mkdir -pv ~/.config/nvim
 [ ! -d "~/.config/lf" ] &&  mkdir -pv ~/.config/lf
@@ -40,10 +40,10 @@ for i in $(ls ${baseDir}/local/bin); do
   ln -s ${baseDir}/local/bin/$i ~/.local/bin
 done
 
-#ln -s ${baseDir}/mpd/mpd.conf ~/.mpd/mpd.conf
-#ln -s ${baseDir}/ncmpcpp/bindings ~/.ncmpcpp/bindings
-#ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
-#sudo ln -s ${baseDir}/git-sync.sh /etc/cron.hourly/git-sync.sh
+ln -s ${baseDir}/mpd/mpd.conf ~/.mpd/mpd.conf
+ln -s ${baseDir}/ncmpcpp/bindings ~/.ncmpcpp/bindings
+ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
+sudo ln -s ${baseDir}/git-sync.sh /etc/cron.hourly/git-sync.sh
 
 #if [ ! -d ${HOME}/.config/BigBagKbdTrixXKB ]; then
   # Colemak-mod-dh layout
