@@ -28,10 +28,26 @@ hi SignColumn ctermbg=NONE guibg=NONE
 " General
 "---------------------------
 
+
 " More natural split opening.
 " Open new split panes to right and bottom, which feels more natural than Vim’s default
 set splitbelow
 set splitright
+
+" Terminal {
+
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" open terminal on ctrl+n
+function! OpenTerminal()
+  split term://bash
+  resize 10
+endfunction
+nnoremap <c-t> :call OpenTerminal()<CR>
+
+" }
 
 " Tabs and spaces {{{
 set expandtab " On pressing tab, insert 2 spaces

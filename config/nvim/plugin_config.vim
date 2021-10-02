@@ -1,4 +1,21 @@
 "-----------------------
+" airline
+"-----------------------
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_theme='kolor'
+"let g:airline_theme='nord_minimal'
+
+"-----------------------
+" xtabline
+"-----------------------
+let g:xtabline_settings = {
+      \ 'relative_paths':           0,
+      \ 'theme':                    'paramount',
+      \ 'tabline_modes':            ['buffers', 'tabs', 'arglist'],
+      \ 'buffer_filtering':         1,
+      \}
+
+"-----------------------
 " FZF
 "-----------------------
 
@@ -46,20 +63,6 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 "-----------------------
-" Lightline
-"-----------------------
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-"-----------------------
 " VimWiki
 "-----------------------
 let g:vimwiki_list = [{'path': '~/Lab/git/vimwiki/',
@@ -69,6 +72,13 @@ let g:vimwiki_list = [{'path': '~/Lab/git/vimwiki/',
 " Nerdtree
 "-----------------------
 let NERDTreeQuitOnOpen=1
+
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "-----------------------
 " CloseTag
