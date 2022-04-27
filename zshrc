@@ -308,6 +308,7 @@ alias \
   envim="nvim ~/.config/nvim" \
   ebspwm='nvim ~/.config/bspwm/bspwmrc' \
   esxhkd='nvim ~/.config/sxhkd/sxhkdrc' \
+  sync-git='bash ~/Lab/git/dot-files/2-git-sync.sh' \
   e="nvim"
 
 # lsd
