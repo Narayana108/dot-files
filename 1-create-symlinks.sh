@@ -44,7 +44,7 @@ done
 ln -s ${baseDir}/mpd/mpd.conf ~/.mpd/mpd.conf
 ln -s ${baseDir}/ncmpcpp/bindings ~/.ncmpcpp/bindings
 ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
-ln -s ${baseDir}/rofi/config ~/.config/rofi
+ln -s ${baseDir}/config/rofi/config.rasi ~/.config/rofi/config.rasi
 sudo ln -s ${baseDir}/git-sync.sh /etc/cron.hourly/git-sync.sh
 
 #if [ ! -d ${HOME}/.config/BigBagKbdTrixXKB ]; then
