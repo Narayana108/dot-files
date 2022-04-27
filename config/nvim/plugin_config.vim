@@ -72,9 +72,8 @@ let g:vimwiki_list = [{'path': '~/Lab/git/vimwiki/',
 " Nerdtree
 "-----------------------
 let NERDTreeQuitOnOpen=1
-
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMinimalUI = 0
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
@@ -131,5 +130,6 @@ let g:closetag_close_shortcut = '<leader>>'
 " vim-mix-format              
 "-----------------------
 " Enable elixir code formating on save
-"let g:mix_format_on_save = 1
+let g:mix_format_on_save = 1
+let g:mix_format_silent_errors = 1
 

@@ -26,6 +26,8 @@ Requires:
 
 ![screenshot of nvim](vim.png)
 
+# Pywal
+
 # ZSH
 
 Hikari ZSH - A pure and minimalistic zsh with special shortcuts

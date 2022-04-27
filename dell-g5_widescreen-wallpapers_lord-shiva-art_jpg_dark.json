@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/narayana/Documents/narayana-data/pictures/Pictures/dell-g5/widescreen-wallpapers/lord-shiva-art.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#100d1b",
+        "foreground": "#97cde2",
+        "cursor": "#97cde2"
+    },
+    "colors": {
+        "color0": "#100d1b",
+        "color1": "#3262FC",
+        "color2": "#5548C1",
+        "color3": "#9237B8",
+        "color4": "#A95A9B",
+        "color5": "#9A4AB3",
+        "color6": "#239BFC",
+        "color7": "#97cde2",
+        "color8": "#698f9e",
+        "color9": "#3262FC",
+        "color10": "#5548C1",
+        "color11": "#9237B8",
+        "color12": "#A95A9B",
+        "color13": "#9A4AB3",
+        "color14": "#239BFC",
+        "color15": "#97cde2"
+    }
+}

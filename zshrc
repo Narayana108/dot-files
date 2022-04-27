@@ -217,6 +217,23 @@ bindkey '^[^?' backward-kill-dir
 bindkey '\e[1;3D' backward-half-word
 bindkey '\e[1;3C' forward-half-word
 
+# exit and cd into last dir you were on ranger
+function ranger {
+    local IFS=$'\t\n'
+    local tempfile="$(mktemp -t tmp.XXXXXX)"
+    local ranger_cmd=(
+        command
+        ranger
+        --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+    )
+    
+    ${ranger_cmd[@]} "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")" || return
+    fi
+    command rm -f -- "$tempfile" 2>/dev/null
+}
+
 # run command line as user root via sudo:
 function sudo-command-line () {
     [[ -z $BUFFER ]] && zle up-history
@@ -289,9 +306,12 @@ alias \
   cpwd="pwd | xclip -selection clipboard" \
   ezsh="nvim ~/.zshrc" \
   envim="nvim ~/.config/nvim" \
+  ebspwm='nvim ~/.config/bspwm/bspwmrc' \
+  esxhkd='nvim ~/.config/sxhkd/sxhkdrc' \
   e="nvim"
 
 # lsd
+alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
@@ -435,7 +455,8 @@ if [ -f '/home/narayana/Work/google-cloud-sdk/path.zsh.inc' ]; then . '/home/nar
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/narayana/Work/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/narayana/Work/google-cloud-sdk/completion.zsh.inc'; fi
 
-export PATH=$PATH:/home/narayana/.local/bin
+#export PATH=$PATH:/home/narayana/.local/bin
+export PATH="${PATH}:${HOME}/.local/bin/"
 export PATH=$PATH:/home/narayana/.local/share/gem/ruby/3.0.0/bin
 
 source '/home/narayana/.local/lib/azure-cli/az.completion'

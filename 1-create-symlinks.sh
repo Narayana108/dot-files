@@ -21,6 +21,7 @@ baseDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 [ ! -d "~/.config/zathura" ] &&  mkdir -pv ~/.config/zathura
 [ ! -d "~/.config/neofetch" ] &&  mkdir -pv ~/.config/neofetch
 [ ! -d "~/.config/cava" ] &&  mkdir -pv ~/.config/cava
+[ ! -d "~/.config/rofi" ] &&  mkdir -pv ~/.config/rofi
 [ ! -d "~/.local/bin" ] &&  mkdir -pv ~/.local/bin
 
 ln -s ${baseDir}/zshrc ~/.zshrc
@@ -43,6 +44,7 @@ done
 ln -s ${baseDir}/mpd/mpd.conf ~/.mpd/mpd.conf
 ln -s ${baseDir}/ncmpcpp/bindings ~/.ncmpcpp/bindings
 ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
+ln -s ${baseDir}/rofi/config ~/.config/rofi
 sudo ln -s ${baseDir}/git-sync.sh /etc/cron.hourly/git-sync.sh
 
 #if [ ! -d ${HOME}/.config/BigBagKbdTrixXKB ]; then
