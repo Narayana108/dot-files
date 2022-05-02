@@ -51,7 +51,7 @@ ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
 ln -s ${baseDir}/config/rofi/config.rasi ~/.config/rofi/config.rasi
 ln -s ${baseDir}/config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc
 ln -s ${baseDir}/config/bspwm/bspwmrc ~/.config/bspwm/bspwmrc
-ln -s ${baseDir}/config/bspwm/colors ~/.config/bspwm/colors.sh
+ln -s ${baseDir}/config/bspwm/colors.sh ~/.config/bspwm/colors.sh
 
 #sudo ln -s ${baseDir}/git-sync.sh /etc/cron.hourly/git-sync.sh
 

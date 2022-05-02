@@ -22,12 +22,13 @@ Plug 'scrooloose/nerdcommenter' 						" Comment blocks for any language
 Plug 'preservim/nerdtree'                   " File browser
 Plug 'vimwiki/vimwiki'                      " notes / wiki
 Plug 'rhysd/vim-crystal'                    " crystal lang
-Plug 'elixir-editors/vim-elixir'                           " vim elixir
+Plug 'elixir-editors/vim-elixir'            " vim elixir
 Plug 'elorest/vim-slang'                    " slang syntax
 Plug 'KabbAmine/vCoolor.vim'                " color picker/selector directly froim vim (Requirs Zenity package)
 Plug 'lilydjwg/colorizer'                   " preview colours in source code while editing
 Plug 'mhinz/vim-mix-format'                 " Elixir code formatter
-
+Plug 'tpope/vim-rails'                      " Rails power tools
+Plug 'alvan/vim-closetag'                   " Close html tags
 
 " Themes
 Plug 'ap/vim-buftabline'                    " Minimal buffer status bar

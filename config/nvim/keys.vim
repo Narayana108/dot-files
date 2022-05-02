@@ -4,13 +4,8 @@
 " Make spacebar the leader key
 map <Space> <Leader>
 
-" A saner way to save files.<F2> is easy to press
-nnoremap <F2> :w<CR>
-
-" Crystal save and run
-"nnoremap <F4> :w !crystal run %<CR>
-"nnoremap <F5> :CrystalImpl <CR>
-"nnoremap <F6> :CrystalFormat <CR>
+" A saner way to save files.
+nnoremap zz :update<cr>
 
 " Reload Vim config
 nnoremap <Leader>r :so ~/.config/nvim/init.vim<CR>
