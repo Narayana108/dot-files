@@ -35,6 +35,7 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
+
 # Arch Linux command-not-found support, you must have package pkgfile installed
 # https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
 [[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
@@ -456,8 +457,8 @@ if [ -f '/home/narayana/Work/google-cloud-sdk/path.zsh.inc' ]; then . '/home/nar
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/narayana/Work/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/narayana/Work/google-cloud-sdk/completion.zsh.inc'; fi
 
-#export PATH=$PATH:/home/narayana/.local/bin
-export PATH="${PATH}:${HOME}/.local/bin/"
 export PATH=$PATH:/home/narayana/.local/share/gem/ruby/3.0.0/bin
 
 source '/home/narayana/.local/lib/azure-cli/az.completion'
+
+eval "$(rbenv init - zsh)"

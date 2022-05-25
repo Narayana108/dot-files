@@ -86,8 +86,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
 "
-let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php"
-au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
+let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php,*.erb"
+au FileType eruby,xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -97,7 +97,7 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
 "
-let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_filetypes = 'html,xhtml,phtml,eruby'
 
 " filetypes like xml, xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -132,11 +132,3 @@ let g:closetag_close_shortcut = '<leader>>'
 " Enable elixir code formating on save
 let g:mix_format_on_save = 1
 let g:mix_format_silent_errors = 1
-
-"-----------------------
-" vim-closetag
-"-----------------------
-let g:closetag_filenames = '*.html,*.xhtml,*.erb'
-let g:closetag_filetypes = 'html,xhtml,erb'
-
-
