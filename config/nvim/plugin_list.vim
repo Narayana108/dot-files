@@ -20,6 +20,7 @@ Plug 'tpope/vim-surround' 									" Surround text with brackets easily
 Plug 'scrooloose/nerdcommenter' 						" Comment blocks for any language
 Plug 'tpope/vim-repeat' 										" Repeat plugin map with '.'
 Plug 'tpope/vim-rails'                      " Rails power tools
+Plug 'tpope/vim-liquid'                     " Liquid syntax
 Plug 'rhysd/vim-crystal'                    " crystal lang
 Plug 'mhinz/vim-mix-format'                 " Elixir code formatter
 Plug 'elorest/vim-slang'                    " slang syntax
@@ -30,7 +31,7 @@ Plug 'lilydjwg/colorizer'                   " preview colours in source code whi
 
 " Themes
 Plug 'ap/vim-buftabline'                    " Minimal buffer status bar
-Plug 'mg979/vim-xtabline'                   " Full control and customization on tabs/buffers
+Plug 'mg979/vim-xtabtine'                   " Full control and customization on tabs/buffers
 Plug 'skielbasa/vim-material-monokai'       " Theme
 Plug 'dylanaraps/wal.vim'                   " Use pywal colours as theme
 Plug 'ryanoasis/vim-devicons'               " Modern icons in nvim

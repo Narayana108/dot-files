@@ -87,6 +87,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " These are the file extensions where this plugin is enabled.
 "
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php,*.erb"
+
+" delimitMate colides with vim-closetag bug fix
 au FileType eruby,xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 " filenames like *.xml, *.xhtml, ...

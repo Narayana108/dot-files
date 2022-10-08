@@ -46,8 +46,11 @@ function! OpenTerminal()
   resize 10
 endfunction
 nnoremap <c-t> :call OpenTerminal()<CR>
-
 " }
+
+" Add new file type {
+autocmd BufNewFile,BufRead *.ejs set filetype=html
+"}
 
 " Tabs and spaces {{{
 set expandtab " On pressing tab, insert 2 spaces

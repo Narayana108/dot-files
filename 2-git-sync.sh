@@ -1,6 +1,6 @@
 #!/bin/bash
 
-touch /tmp/cron-worked-test
+#touch /tmp/cron-worked-test
 
 gitDirs=("${HOME}/Lab/git/vimwiki" "${HOME}/Lab/git/dot-files")
 

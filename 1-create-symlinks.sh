@@ -55,11 +55,6 @@ ln -s ${baseDir}/config/bspwm/colors.sh ~/.config/bspwm/colors.sh
 
 #sudo ln -s ${baseDir}/git-sync.sh /etc/cron.hourly/git-sync.sh
 
-#if [ ! -d ${HOME}/.config/BigBagKbdTrixXKB ]; then
-  # Colemak-mod-dh layout
-#  git clone https://github.com/DreymaR/BigBagKbdTrixXKB.git ~/.config/BigBagKbdTrixXKB/
-#fi
-
 #if [ ! -d ${HOME}/.config/iris-micro ]; then
   # Dim/yellow screen
 #  git clone git@gitlab.com:qrsna/iris-micro.git ~/.config/iris-micro
