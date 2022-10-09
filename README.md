@@ -2,7 +2,7 @@
 ## pacman
 
 ```sh
-git fasd lsd bat ranger nvim lf python-pip ripgrep
+git fasd lsd bat ranger nvim lf python-pip ripgrep ksnip
 ```
 
 ```sh
