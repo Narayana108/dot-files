@@ -1,0 +1,111 @@
+alias speed='speedtest-cli --server 2406 --simple'
+
+# app alias's
+alias \
+  gvid="youtube-dl -f 'bestvideo[height<=720]+bestaudio/best[height<=720]'  -i " \
+  gsong="youtube-dl -x --audio-format mp3 " \
+  kb-col="bash /home/narayana/.config/BigBagKbdTrixXKB/setxkb.sh 4ca us us" \
+  kb-us="setxkbmap -layout 'us' -model 'geniuskkb2050hs' -v 9 -symbols pc+us+inet -option" \
+  cpwd="pwd | xclip -selection clipboard" \
+  ezsh="nvim ~/.zshrc" \
+  envim="nvim ~/.config/nvim" \
+  ebspwm='nvim ~/.config/bspwm/bspwmrc' \
+  esxhkd='nvim ~/.config/sxhkd/sxhkdrc' \
+  sync-dotfiles='bash ~/Lab/git/dot-files/2-git-sync.sh' \
+  e="nvim"
+
+# lsd
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+
+# fasd
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
+
+# Kubernetes
+alias k="kubectl" \
+      kg="kubectl get" \
+      kd="kubectl describe" \
+      krm="kubectl delete" \
+      klo="kubectl logs -f" \
+      ke="kubectl exec -it " \
+      ka="kubectl apply -f"
+
+alias mpvm='mpv --vo=null --video=no --no-video --term-osd-bar --no-resume-playback'
+
+keb () {
+  kubectl exec -it $1 -- bash
+}
+
+kimaged () {
+  kubectl get deployment $1 --output=json | jq .spec.template.spec.containers[].image
+}
+
+kimages () {
+  kubectl get statefulsets $1 --output=json | jq .spec.template.spec.containers[].image
+}
+
+# Exec into pod
+kx () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local cmd=${@:-"bash"}
+
+	echo kubectl exec -it --namespace $pod[1] $pod[2] $cmd
+	kubectl exec -it --namespace $pod[1] $pod[2] $cmd
+}
+
+# Get pods logs
+kl () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local attr=${@:-""}
+
+	echo kubectl logs -f $attr --namespace $pod[1] $pod[2]
+	kubectl logs -f $attr --namespace $pod[1] $pod[2]
+}
+
+ks () {
+ kubectl get secrets $1 -o yaml | ksd
+}
+
+# Copy file to clipboard
+cc () {
+  cat $1 | xclip -i -selection clipboard
+}
+
+function genpass() {
+  #openssl rand -base64 29 | tr -d "=+/" | cut -c1-25
+  LENGTH=25
+  if [ ! -z "$1" ] && [ $1 -gt 1 ]; then
+    LENGTH=$1
+  fi
+    NUMBYTES=`echo $LENGTH | awk '{print int($1*1.16)+1}'`
+    openssl rand -base64 $NUMBYTES | tr -d "=+/" | cut -c1-$LENGTH
+}
+
+# Check if package is installed
+function cpkg() {
+  check="$(sudo pacman -Qs "$1")" ;
+  if [ -n "${check}" ] ; then
+      echo "$1 is installed";
+  elif [ -z "${check}" ] ; then
+      echo "$1 is NOT installed";
+  fi;
+}
+
+function gac() {
+  if [ -d .git ]; then
+    git status
+    git add .
+    git commit -s -a -m "$1"
+    git push
+  fi;
+}

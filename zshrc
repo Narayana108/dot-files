@@ -48,7 +48,7 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 # Include aliases dotfile
-source ~/.aliases
+source ~/Lab/git/dot-files/aliases
 
 # Colors in lesesas (Red)
 export LESS_TERMCAP_m=b$'\E[01;31m'

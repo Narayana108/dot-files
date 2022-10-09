@@ -2,35 +2,38 @@
 # wm independent hotkeys
 #
 
+####User Application ####
+alt + {b,w,p,t}
+	{brave,garuda-welcome,pamac-manager,dolphin}
+
 # terminal emulator
 super + Return
-	xfce4-terminal
+	alacritty
 
 # program launcher
 super + d
-	rofi -modi drun -show drun -line-padding 4 \
-                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
-                -show-icons -drun-icon-theme "Qogir-dark" -font "Droid Sans Regular 10"
+	rofi -modi drun -show drun 
 
-# show open window
-super + ctrl + d
-	rofi -modi drun -show window -line-padding 4 \
-                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
-                -show-icons -drun-icon-theme "Qogir-dark" -font "Droid Sans Regular 10"
+#super + d
+	#dmenu_run -h 30 -fn 'Dejavu'
 
-# show ssh sesssions
-super + shift + d
-	rofi -modi drun -show ssh -line-padding 4 \
-                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
-                -show-icons -drun-icon-theme "Qogir-dark" -font "Droid Sans Regular 10"
-
-# power-menu 
-super + shift + e
-     ~/.config/rofi/powermenu.sh
-
-# make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+#screenShooter
+Print
+	ksnip -fs
+
+# Close screen
+super + shift + s
+	sleep 0.5; xset dpms force standby
+
+# Lock screen
+super + shift + x
+	betterlockscreen -l
+
+# betterlockscreen -l -u ~/Pictures/krishna_art/0228_SB6\ 06.jpg
+# betterlockscreen -l -u ~/Pictures/krishna_art/0238_SB8\ 13.jpg
 
 #
 # bspwm hotkeys
@@ -61,13 +64,16 @@ super + g
 #
 
 # set the window state
-super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+super + {t,shift + t,s}
+	bspc node -t {tiled,pseudo_tiled,floating}
 
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
+# Toggle Fullscreen
+super + f
+	bspc node --state \~fullscreen
 #
 # focus/swap
 #
@@ -137,47 +143,23 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-#
-# Special hotkeys
-#
 
-# Multimedia keys
-XF86AudioRaiseVolume
-  amixer -q set Master 5%+ unmute
-
-# Still multimedia
-XF86AudioLowerVolume
-  amixer -q set Master 5%- unmute
-
-# still
+# volume settings
+# Not working
 XF86AudioMute
-  amixer -D pulse sset Master toggle-mute
-  
-# amixer -q set Master toggle
-# Simple amixer command seems to have problems unmuting device
+ pactl set-sink-mute 0 toggle
 
-# Brightness up
-XF86MonBrightnessUp
-  xbacklight -inc 5
+XF86AudioRaiseVolume
+ pactl set-sink-volume 0 +5%
 
-# And brightness down
-XF86MonBrightnessDown
-  xbacklight -dec 5
+XF86AudioLowerVolume
+ pactl set-sink-volume 0 -5%
 
-# Screenshot
-Print
-  scrot ~/Pictures/screen_shots/Screenshot-$(date +%F_%T).png
-
-super + Print
-	ksnip -fs
- # ~/.config/bspwm/scripts/screenshot.sh
-
-# Shortcuts
-super + w 
-  brave
-
-super + n 
-  thunar  
-
+ # --- Volume Control ---
 super + F1
-  ~/.config/bspwm/scripts/keybindings_rofi.sh
+    pactl set-sink-mute @DEFAULT_SINK@ toggle; \
+		notify-send “toggle mute”
+super + F2
+    ~/.local/bin/pavolume -5%; notify-send “volume down”
+super + F3
+		~/.local/bin/pavolume +5%; notify-send “volume up”
