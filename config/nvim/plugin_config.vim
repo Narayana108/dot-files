@@ -1,4 +1,21 @@
 "-----------------------
+" airline
+"-----------------------
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_theme='kolor'
+"let g:airline_theme='nord_minimal'
+
+"-----------------------
+" xtabline
+"-----------------------
+let g:xtabline_settings = {
+      \ 'relative_paths':           0,
+      \ 'theme':                    'paramount',
+      \ 'tabline_modes':            ['buffers', 'tabs', 'arglist'],
+      \ 'buffer_filtering':         1,
+      \}
+
+"-----------------------
 " FZF
 "-----------------------
 
@@ -46,20 +63,6 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 "-----------------------
-" Lightline
-"-----------------------
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-"-----------------------
 " VimWiki
 "-----------------------
 let g:vimwiki_list = [{'path': '~/Lab/git/vimwiki/',
@@ -69,6 +72,12 @@ let g:vimwiki_list = [{'path': '~/Lab/git/vimwiki/',
 " Nerdtree
 "-----------------------
 let NERDTreeQuitOnOpen=1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 0
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "-----------------------
 " CloseTag
@@ -77,8 +86,10 @@ let NERDTreeQuitOnOpen=1
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
 "
-let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php"
-au FileType xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
+let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.php,*.erb"
+
+" delimitMate colides with vim-closetag bug fix
+au FileType eruby,xml,html,phtml,php,xhtml,js let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -88,7 +99,7 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
 "
-let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_filetypes = 'html,xhtml,phtml,eruby'
 
 " filetypes like xml, xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -115,3 +126,11 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 "
 let g:closetag_close_shortcut = '<leader>>'
+
+
+"-----------------------
+" vim-mix-format              
+"-----------------------
+" Enable elixir code formating on save
+let g:mix_format_on_save = 1
+let g:mix_format_silent_errors = 1

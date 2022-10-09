@@ -3,6 +3,7 @@
 "---------------------------
 
 set termguicolors     " enable true colors support 
+
 " let ayucolor="dark"   " for dark version of theme
 "colorscheme space-vim-dark
 colorscheme material-monokai
@@ -11,9 +12,9 @@ colorscheme material-monokai
 "colorscheme space-vim-dark
 
 " Transparent background
-"hi Normal     ctermbg=NONE guibg=NONE
-"hi LineNr     ctermbg=NONE guibg=NONE
-"hi SignColumn ctermbg=NONE guibg=NONE
+hi Normal     ctermbg=NONE guibg=NONE
+hi LineNr     ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
 
 " Grey comments
 "hi Comment guifg=#5C6370 ctermfg=59
@@ -27,10 +28,29 @@ colorscheme material-monokai
 " General
 "---------------------------
 
+
 " More natural split opening.
 " Open new split panes to right and bottom, which feels more natural than Vim’s default
 set splitbelow
 set splitright
+
+" Terminal {
+
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" open terminal on ctrl+n
+function! OpenTerminal()
+  split term://bash
+  resize 10
+endfunction
+nnoremap <c-t> :call OpenTerminal()<CR>
+" }
+
+" Add new file type {
+autocmd BufNewFile,BufRead *.ejs set filetype=html
+"}
 
 " Tabs and spaces {{{
 set expandtab " On pressing tab, insert 2 spaces
@@ -64,7 +84,7 @@ set number relativenumber  " Shows numbers column on the left relative to curren
 filetype indent on  " Load filetype-specific indent files
 "set autoindent      " Indent when creating newline
 set showcmd         " Show command in bottom bar
-set cursorline      " Highlight current line
+"set cursorline      " Highlight current line
 set noshowmode      " Removes insert mode title
 set nohlsearch      " Turn off highlighting
 

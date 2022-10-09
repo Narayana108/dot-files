@@ -4,13 +4,8 @@
 " Make spacebar the leader key
 map <Space> <Leader>
 
-" A saner way to save files.<F2> is easy to press
-nnoremap <F2> :w<CR>
-
-" Crystal save and run
-nnoremap <F4> :w !crystal run %<CR>
-nnoremap <F5> :CrystalImpl <CR>
-nnoremap <F6> :CrystalFormat <CR>
+" A saner way to save files.
+nnoremap zz :update<cr>
 
 " Reload Vim config
 nnoremap <Leader>r :so ~/.config/nvim/init.vim<CR>
@@ -66,8 +61,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 "-------------------------------
 " FZF
-"-------------------------------
-" File Finder
+"------------------------------- File Finder
 nmap <Leader>f :GFiles<CR>
 nmap <Leader>F :Files<CR>
 
@@ -112,3 +106,28 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+"-------------------------------
+" CoC
+"-------------------------------
+" Use <Tab> and <S-Tab> to navigate the completion list:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
+"-------------------------------
+" TwiddleCase
+"-------------------------------
+" Press ~ to convert the text to UPPER CASE, then to lower case, then to Title Case. 
+" Keep pressing ~ until you get the case you want.
+function! TwiddleCase(str)
+  if a:str ==# toupper(a:str)
+    let result = tolower(a:str)
+  elseif a:str ==# tolower(a:str)
+    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+  else
+    let result = toupper(a:str)
+  endif
+  return result
+endfunction
+vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv

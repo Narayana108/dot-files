@@ -1,9 +1,8 @@
 #!/bin/bash
 
-touch /tmp/cron-worked-test
+#touch /tmp/cron-worked-test
 
-gitDirs=("${HOME}/Lab/git/vimwiki" "${HOME}/Lab/git/dot-files" \
-  "${HOME}/.config/herbstluftwm")
+gitDirs=("${HOME}/Lab/git/vimwiki" "${HOME}/Lab/git/dot-files")
 
 function gitSync() {
     cd $dir

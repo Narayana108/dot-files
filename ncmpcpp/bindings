@@ -1,0 +1,66 @@
+# see /usr/share/doc/ncmpcpp/bindings
+
+# * Navigation
+# normal vim
+def_key "g"
+	move_home
+def_key "G"
+	move_end
+def_key "w"
+	scroll_down_album
+def_key "b"
+	scroll_up_album
+
+def_key "j"
+    scroll_down
+def_key "k"
+    scroll_up
+def_key "h"
+    previous_column
+def_key "l"
+    next_column
+
+def_key "ctrl-u"
+    page_up
+
+def_key "ctrl-d"
+    page_down
+
+
+def_key "."
+    show_lyrics
+
+def_key "n"
+    next_found_item
+def_key "N"
+    previous_found_item
+
+def_key "J"
+    move_sort_order_down
+def_key "K"
+    move_sort_order_up
+
+def_key "d"
+  delete_playlist_items
+
+def_key "d"
+  delete_browser_items
+
+# * Other
+def_key "?"
+	show_help
+def_key ","
+	show_song_info
+def_key "."
+	show_artist_info
+# hacky way to have multikey bindings
+def_key "t"
+	execute_command
+# can't use any other commands that start out with s
+def_command "s" [immediate]
+	save_playlist
+
+def_key "+"
+    show_clock
+def_key "="
+    volume_up

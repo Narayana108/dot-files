@@ -1,32 +1,64 @@
-# Mon
-#### Bash script to view system resources
-`./local/bin/mon`
+# Arch linux packages:
+## pacman
 
-![screenshot of mon](mon.png)
+```sh
+git fasd lsd bat ranger nvim lf python-pip ripgrep ksnip
+```
 
-# LF
-#### Terminal file manager written in go
-- Has depencies from `./local/bin`
-  * `rotdir`
-  * `lf-select`
-- Has package requirements to open files
-- Added shortcuts
-- Added extensions to open with correct apps
-- Added image previews
+```sh
+# Music/Media
+ncmpcpp mpd mpv feh
 
-# Zathura
-#### Terminal ebook and pdf viewer
-- Added vim shortcuts
+#AUR
+cava
+```
+
+```sh
+#mpd
+sudo gpasswd -a mpd <your login group>
+sudo gpasswd -a mpd audio
+#copy config
+mpd
+
+```
+
+## AUR
+```
+brave-bin 
+```
+
+## Other
+```
+n 
+```
+
 
 # NeoVim
 Requires:
 - https://github.com/junegunn/vim-plug
 - https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim
-  - https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions 
+- https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions 
+
+### CocInstall
+requires latest nodejs version
+```
+:CocInstall coc-markdownlint coc-pyright coc-json coc-tsserver coc-html coc-sh
+```
 
 ![screenshot of nvim](vim.png)
 
+# Pywal
+
 # ZSH
+```sh
+# Install
+sudo pacman -S zsh
+
+# Switch shell to zsh
+chsh -s $(which zsh)
+
+# Restart/Logout to take effect
+```
 
 Hikari ZSH - A pure and minimalistic zsh with special shortcuts
 
@@ -88,3 +120,23 @@ import it after hikari via `zshrc.local`.
 * interactive comments
 * background jobs
 * vcs support
+
+# LF
+#### Terminal file manager written in go
+- Has depencies from `./local/bin`
+  * `rotdir`
+  * `lf-select`
+- Has package requirements to open files
+- Added shortcuts
+- Added extensions to open with correct apps
+- Added image previews
+
+# Zathura
+#### Terminal ebook and pdf viewer
+- Added vim shortcuts
+
+# Mon
+#### Bash script to view system resources
+`./local/bin/mon`
+
+![screenshot of mon](mon.png)

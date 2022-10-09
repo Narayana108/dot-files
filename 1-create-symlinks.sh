@@ -4,24 +4,29 @@ echo "Creating symlinks..."
 #Gets the full path of the current directory
 baseDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Create dir if does not exist
-#[ ! -d "~/.mpd/" ] &&  mkdir -p ~/.mpd
-#[ ! -d "~/.ncmpcpp/" ] &&  mkdir -p ~/.ncmpcpp
-#[ ! -d "~/Music/mpd-playlists" ] &&  mkdir -p ~/Music/mpd-playlists \ 
-#&& touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate} \
-#&& chmod 774 ~/Music/mpd-playlists  ~/.mpd
+### Create dir if does not exist
 
-# sudo gpasswd -a mpd audio
-# sudo gpasswd -a mpd <your login group>
+[ ! -d "~/.mpd/" ] &&  mkdir -p ~/.mpd
+[ ! -d "~/.ncmpcpp/" ] &&  mkdir -p ~/.ncmpcpp
+[ ! -d "~/Music/mpd-playlists" ] &&  mkdir -p ~/Music/mpd-playlists \
+  && touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate} \
+  && chmod 774 ~/Music/mpd-playlists  ~/.mpd
 
-#[ ! -d "~/Music/lyrics" ] &&  mkdir -pv ~/Music/lyrics
+  # sudo gpasswd -a mpd audio
+  # sudo gpasswd -a mpd <your login group>
 
+[ ! -d "~/Music/lyrics" ] &&  mkdir -pv ~/Music/lyrics
 [ ! -d "~/.config/nvim" ] &&  mkdir -pv ~/.config/nvim
 [ ! -d "~/.config/lf" ] &&  mkdir -pv ~/.config/lf
 [ ! -d "~/.config/zathura" ] &&  mkdir -pv ~/.config/zathura
 [ ! -d "~/.config/neofetch" ] &&  mkdir -pv ~/.config/neofetch
 [ ! -d "~/.config/cava" ] &&  mkdir -pv ~/.config/cava
+[ ! -d "~/.config/rofi" ] &&  mkdir -pv ~/.config/rofi
 [ ! -d "~/.local/bin" ] &&  mkdir -pv ~/.local/bin
+[ ! -d "~/.config/bspwm" ] &&  mkdir -pv ~/.config/bspwm
+[ ! -d "~/.config/sxhkd" ] &&  mkdir -pv ~/.config/sxhkd
+
+### Create symlinks
 
 ln -s ${baseDir}/zshrc ~/.zshrc
 ln -s ${baseDir}/config/zathura/zathurarc ~/.config/zathura
@@ -40,15 +45,15 @@ for i in $(ls ${baseDir}/local/bin); do
   ln -s ${baseDir}/local/bin/$i ~/.local/bin
 done
 
-#ln -s ${baseDir}/mpd/mpd.conf ~/.mpd/mpd.conf
-#ln -s ${baseDir}/ncmpcpp/bindings ~/.ncmpcpp/bindings
-#ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
-#sudo ln -s ${baseDir}/git-sync.sh /etc/cron.hourly/git-sync.sh
+ln -s ${baseDir}/mpd/mpd.conf ~/.mpd/mpd.conf
+ln -s ${baseDir}/ncmpcpp/bindings ~/.ncmpcpp/bindings
+ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
+ln -s ${baseDir}/config/rofi/config.rasi ~/.config/rofi/config.rasi
+ln -s ${baseDir}/config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc
+ln -s ${baseDir}/config/bspwm/bspwmrc ~/.config/bspwm/bspwmrc
+ln -s ${baseDir}/config/bspwm/colors.sh ~/.config/bspwm/colors.sh
 
-#if [ ! -d ${HOME}/.config/BigBagKbdTrixXKB ]; then
-  # Colemak-mod-dh layout
-#  git clone https://github.com/DreymaR/BigBagKbdTrixXKB.git ~/.config/BigBagKbdTrixXKB/
-#fi
+#sudo ln -s ${baseDir}/git-sync.sh /etc/cron.hourly/git-sync.sh
 
 #if [ ! -d ${HOME}/.config/iris-micro ]; then
   # Dim/yellow screen
