@@ -2,7 +2,7 @@
 ## pacman
 
 ```sh
-git fasd lsd bat ranger nvim lf python-pip ripgrep ksnip
+github-cli fasd lsd bat ranger nvim lf python-pip ripgrep ksnip tldr
 ```
 
 ```sh
@@ -29,7 +29,8 @@ brave-bin
 
 ## Other
 ```
-n 
+# asdf is a tool version manager for nodejs/ruby/python/elixir etc
+asdf
 ```
 
 

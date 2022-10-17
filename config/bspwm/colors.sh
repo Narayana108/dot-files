@@ -1,1 +1,0 @@
-/home/narayana/Lab/git/dot-files/config/bspwm/colors.sh

@@ -9,6 +9,7 @@ antigen bundle heroku
 antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
+antigen bundle ssh-agent
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -69,6 +70,8 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 #export LESS_TERMCAP_us=$'\E[01;36m'
 #export LESS=-r
 
+# asdf 
+. /opt/asdf-vm/asdf.sh
 
 # Default programs:
 export BROWSER='/usr/bin/brave'
@@ -77,5 +80,3 @@ export EDITOR=$VISUAL
 export PATH=$PATH:~/.local/bin
 
 (cat ~/.cache/wal/sequences &)
-
-export N_PREFIX="$HOME/.local/share/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).

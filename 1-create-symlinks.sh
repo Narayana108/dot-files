@@ -7,7 +7,7 @@ baseDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ### Create dir if does not exist
 
 [ ! -d "~/.mpd/" ] &&  mkdir -p ~/.mpd
-[ ! -d "~/.ncmpcpp/" ] &&  mkdir -p ~/.ncmpcpp
+[ ! -d "~/.config/ncmpcpp/" ] &&  mkdir -p ~/.config/ncmpcpp
 [ ! -d "~/Music/mpd-playlists" ] &&  mkdir -p ~/Music/mpd-playlists \
   && touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate} \
   && chmod 774 ~/Music/mpd-playlists  ~/.mpd
@@ -69,8 +69,8 @@ for i in $(ls ${baseDir}/config/rofi); do
 done
 
 ln -s ${baseDir}/mpd/mpd.conf ~/.mpd/mpd.conf
-ln -s ${baseDir}/ncmpcpp/bindings ~/.ncmpcpp/bindings
-ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
+ln -s ${baseDir}/config/ncmpcpp/bindings ~/.config/ncmpcpp/bindings
+ln -s ${baseDir}/config/ncmpcpp/config ~/.config/ncmpcpp/config
 ln -s ${baseDir}/config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc
 
 # sxhkd bspwm rofi polybar

@@ -4,15 +4,14 @@ alias speed='speedtest-cli --server 2406 --simple'
 alias \
   gvid="youtube-dl -f 'bestvideo[height<=720]+bestaudio/best[height<=720]'  -i " \
   gsong="youtube-dl -x --audio-format mp3 " \
-  kb-col="bash /home/narayana/.config/BigBagKbdTrixXKB/setxkb.sh 4ca us us" \
-  kb-us="setxkbmap -layout 'us' -model 'geniuskkb2050hs' -v 9 -symbols pc+us+inet -option" \
   cpwd="pwd | xclip -selection clipboard" \
   ezsh="nvim ~/.zshrc" \
   envim="nvim ~/.config/nvim" \
   ebspwm='nvim ~/.config/bspwm/bspwmrc' \
   esxhkd='nvim ~/.config/sxhkd/sxhkdrc' \
   sync-dotfiles='bash ~/Lab/git/dot-files/2-git-sync.sh' \
-  e="nvim"
+  e="nvim" \
+  cddot='cd ~/Lab/git/dot-files/'
 
 # lsd
 alias ls='lsd'
