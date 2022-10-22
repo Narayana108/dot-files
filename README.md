@@ -59,7 +59,7 @@ Requires:
 ### CocInstall
 requires latest nodejs version
 ```
-:CocInstall coc-markdownlint coc-pyright coc-json coc-tsserver coc-html coc-sh
+:CocInstall coc-markdownlint coc-pyright coc-json coc-tsserver coc-html coc-css coc-sh
 ```
 
 ![screenshot of nvim](vim.png)
