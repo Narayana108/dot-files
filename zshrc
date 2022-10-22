@@ -48,6 +48,12 @@ bindkey -M vicmd 'j' down-line-or-beginning-search
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
+# fasd
+eval "$(fasd --init auto)"
+
+# asdf 
+. /opt/asdf-vm/asdf.sh
+
 # Include aliases dotfile
 source ~/Lab/git/dot-files/aliases
 
@@ -69,9 +75,6 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 #export LESS_TERMCAP_ue=$'\E[0m'
 #export LESS_TERMCAP_us=$'\E[01;36m'
 #export LESS=-r
-
-# asdf 
-. /opt/asdf-vm/asdf.sh
 
 # Default programs:
 export BROWSER='/usr/bin/brave'

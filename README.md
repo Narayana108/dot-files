@@ -1,14 +1,30 @@
 # Arch linux packages:
-## pacman
+## pacman -S <package>
 
 ```sh
-github-cli fasd lsd bat ranger nvim lf python-pip ripgrep ksnip tldr
+github-cli 
+fasd 
+lsd 
+bat 
+ranger 
+nvim 
+lf 
+python-pip 
+ripgrep 
+ksnip 
+tldr
+ncmpcpp 
+mpd 
+mpv 
+feh
+vlc 
+okular 
+zathura 
+discord
+telegram-desktop
 ```
 
 ```sh
-# Music/Media
-ncmpcpp mpd mpv feh
-
 #AUR
 cava
 ```
