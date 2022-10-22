@@ -69,8 +69,8 @@ for i in $(ls ${baseDir}/config/rofi); do
 done
 
 ln -s ${baseDir}/mpd/mpd.conf ~/.mpd/mpd.conf
-ln -s ${baseDir}/.ncmpcpp/bindings ~/.ncmpcpp/bindings
-ln -s ${baseDir}/.ncmpcpp/config ~/.ncmpcpp/config
+ln -s ${baseDir}/ncmpcpp/bindings ~/.ncmpcpp/bindings
+ln -s ${baseDir}/ncmpcpp/config ~/.ncmpcpp/config
 ln -s ${baseDir}/config/sxhkd/sxhkdrc ~/.config/sxhkd/sxhkdrc
 
 # sxhkd bspwm rofi polybar
