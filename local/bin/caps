@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+# Map caps to escape and back
+
+import sys
+import os
+
+# Get first command line argument
+caps_mode = str(sys.argv[1])
+
+match caps_mode:
+    case "off":
+        try:
+          os.system('xmodmap -e "clear lock"')
+          os.system('xmodmap -e "keycode 0x42 = Escape"')
+          print("Capslock is now escape")
+        except:
+          print("Error running xmodmap command")
+
+    case "on":
+        try:
+          os.system('xmodmap -e "keycode 0x42 = Caps_Lock"')
+          os.system('xmodmap -e "add lock = Caps_Lock"')
+          print("Capslock is now capslock")
+        except:
+          print('Error running xmodmap command')
+
+    case _:
+      print("Usage: ./caps on/off")

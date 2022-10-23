@@ -32,6 +32,7 @@ baseDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ### Create symlinks
 
 ln -s ${baseDir}/zshrc ~/.zshrc
+ln -s ${baseDir}/Xmodmap ~/.Xmodmap
 ln -s ${baseDir}/config/zathura/zathurarc ~/.config/zathura
 ln -s ${baseDir}/config/cava/config ~/.config/cava/config
 ln -s ${baseDir}/config/neofetch/config.conf ~/.config/neofetch/config.conf

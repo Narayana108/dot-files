@@ -134,3 +134,7 @@ let g:closetag_close_shortcut = '<leader>>'
 " Enable elixir code formating on save
 let g:mix_format_on_save = 1
 let g:mix_format_silent_errors = 1
+
+"-----------------------
+" Coc
+"-----------------------
