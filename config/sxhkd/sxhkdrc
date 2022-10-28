@@ -174,7 +174,7 @@ super + Print
 
 # Shortcuts
 super + w 
-  brave
+  librewolf
 
 super + n 
   thunar  

@@ -16,17 +16,33 @@ tldr
 ncmpcpp 
 mpd 
 mpv 
-feh
+baka-mplayer
 vlc 
+feh
 okular 
 zathura 
 discord
 telegram-desktop
+ibus
+shotwell
+ristretto
+deluge
+discord
+librewolf
 ```
 
-```sh
-#AUR
+## AUR
+```
+## yay -S <package>
+brave-bin 
+keyman
 cava
+```
+
+## Other
+```
+# asdf is a tool version manager for nodejs/ruby/python/elixir etc
+asdf 
 ```
 
 ```sh
@@ -35,20 +51,7 @@ sudo gpasswd -a mpd <your login group>
 sudo gpasswd -a mpd audio
 #copy config
 mpd
-
 ```
-
-## AUR
-```
-brave-bin 
-```
-
-## Other
-```
-# asdf is a tool version manager for nodejs/ruby/python/elixir etc
-asdf
-```
-
 
 # NeoVim
 Requires:

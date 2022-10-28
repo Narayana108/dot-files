@@ -1,4 +1,4 @@
-source ~/.antigen/antigen.zsh
+source ~/.config/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -26,9 +26,11 @@ bindkey '^P' autosuggest-accept
 # history and browsing history config
 # https://zsh.sourceforge.io/Doc/Release/Options.html#History
 # https://github.com/ohmyzsh/ohmyzsh/issues/1720#issuecomment-286366959
-HISTFILE="$HOME/.zsh_history"
-HISTSIZE=50000
-SAVEHIST=50000
+
+# History in cache direct ory:
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
@@ -52,34 +54,17 @@ bindkey '^R' history-incremental-search-backward
 eval "$(fasd --init auto)"
 
 # asdf 
-. /opt/asdf-vm/asdf.sh
+export ASDF_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/asdf"
+export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/asdf/asdfrc"
+export ASDF_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/asdf-vm"
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
+
+. $HOME/.local/share/asdf-vm/asdf.sh
 
 # Include aliases dotfile
 source ~/Lab/git/dot-files/aliases
-
-# Colors in lesesas (Red)
-export LESS_TERMCAP_m=b$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
-
-# Color man pages (Green)
-#export LESS_TERMCAP_mb=$'\E[01;32m'
-#export LESS_TERMCAP_md=$'\E[01;32m'
-#export LESS_TERMCAP_me=$'\E[0m'
-#export LESS_TERMCAP_se=$'\E[0m'
-#export LESS_TERMCAP_so=$'\E[01;47;34m'
-#export LESS_TERMCAP_ue=$'\E[0m'
-#export LESS_TERMCAP_us=$'\E[01;36m'
-#export LESS=-r
-
-# Default programs:
-export BROWSER='/usr/bin/brave'
-export VISUAL=nvim
-export EDITOR=$VISUAL
-export PATH=$PATH:~/.local/bin
 
 (cat ~/.cache/wal/sequences &)

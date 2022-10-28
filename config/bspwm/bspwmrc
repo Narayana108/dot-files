@@ -16,6 +16,7 @@ bspc config focus_follows_pointer true
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a firefox desktop='^2'
+bspc rule -a librewolf desktop='^2'
 bspc rule -a brave desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Yad state=floating
@@ -47,6 +48,10 @@ dex -a -s /etc/xdg/autostart/:~/.config/autostart/  &
 # picom -b &
 # Network Applet
 nm-applet --indicator &
+
+mpd &
+
+ibus-daemon -drxR &
 
 # Cursor
 xsetroot -cursor_name left_ptr &

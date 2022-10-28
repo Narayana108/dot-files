@@ -29,9 +29,37 @@ baseDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 [ ! -d "~/.config/polybar" ] &&  mkdir -pv ~/.config/polybar
 [ ! -d "~/.config/polybar/scripts" ] &&  mkdir -pv ~/.config/polybar/scripts
 
+[ ! -d "$HOME/.config/x11/" ] && mkdir -pv $HOME/.config/x11
+[ ! -d "$HOME/.config/gtk-2.0" ] && mkdir -pv $HOME/.config/gtk-2.0
+[ ! -d "$HOME/.config/wget/wgetr" ] && mkdir -pv $HOME/.config/wget/wgetr
+[ ! -d "$HOME/.config/shell/inputrc" ] && mkdir -pv $HOME/.config/shell/inputrc
+[ ! -d "$HOME/.config/zsh" ] && mkdir -pv $HOME/.config/zsh
+[ ! -d "$HOME/.config/android" ] && mkdir -pv $HOME/.config/android
+[ ! -d "$HOME/.config/weechat" ] && mkdir -pv $HOME/.config/weechat
+[ ! -d "$HOME/.config/ansible" ] && mkdir -pv $HOME/.config/ansible
+[ ! -d "$HOME/.config/asdf" ] && mkdir -pv $HOME/.config/asdf
+
+[ ! -d "$HOME/.local/share/antigen" ] && mkdir -pv $HOME/.local/share/antigen
+[ ! -d "$HOME/.local/share/gnupg" ] && mkdir -pv $HOME/.local/share/gnupg
+[ ! -d "$HOME/.local/share/wineprefixes/default" ] && mkdir -pv $HOME/.local/share/wineprefixes/default
+[ ! -d "$HOME/.local/share/kodi" ] && mkdir -pv $HOME/.local/share/kodi
+[ ! -d "$HOME/.local/share/password-store" ] && mkdir -pv $HOME/.local/share/password-store
+[ ! -d "$HOME/.local/share/cargo" ] && mkdir -pv $HOME/.local/share/cargo
+[ ! -d "$HOME/.local/share/go" ] && mkdir -pv $HOME/.local/share/go
+[ ! -d "$HOME/.local/share/unison" ] && mkdir -pv $HOME/.local/share/unison
+[ ! -d "$HOME/.local/share/electrum" ] && mkdir -pv $HOME/.local/share/electrum
+[ ! -d "$HOME/.local/share/asdf" ] && mkdir -pv $HOME/.local/share/asdf
+[ ! -d "$HOME/.local/share/antigen" ] && mkdir -pv $HOME/.local/share/antigen
+[ ! -d "$HOME/.local/share/gnupg" ] && mkdir -pv $HOME/.local/share/gnupg
+[ ! -d "$HOME/.cache/zsh" ] && mkdir -pv $HOME/.cache/zsh
+
+
+
 ### Create symlinks
 
-ln -s ${baseDir}/zshrc ~/.zshrc
+ln -s ${baseDir}/zshrc ~/.config/zsh/.zshrc
+ln -s ${baseDir}/profile ~/.config/shell/profile
+ln -s ${baseDir}/Xresources ~/.Xresources
 ln -s ${baseDir}/Xmodmap ~/.Xmodmap
 ln -s ${baseDir}/config/zathura/zathurarc ~/.config/zathura
 ln -s ${baseDir}/config/cava/config ~/.config/cava/config
