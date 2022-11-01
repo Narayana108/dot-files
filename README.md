@@ -53,6 +53,11 @@ sudo gpasswd -a mpd audio
 mpd
 ```
 
+Set Librewolf as default browser
+```sh
+xdg-settings set default-web-browser librewolf.desktop
+```
+
 # NeoVim
 Requires:
 - https://github.com/junegunn/vim-plug

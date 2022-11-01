@@ -14,7 +14,23 @@ alias \
   esxhkd='nvim ~/.config/sxhkd/sxhkdrc' \
   sync-dotfiles='bash ~/Lab/git/dot-files/2-git-sync.sh' \
   e="nvim" \
-  cddot='cd ~/Lab/git/dot-files/'
+  cddot='cd ~/Lab/git/dot-files/' \
+  mpvm='mpv --vo=null --video=no --no-video --term-osd-bar --no-resume-playback'
+
+# protonvpn
+alias \
+  pvpn-f='protonvpn-cli c -f' \
+  pvpn-d='protonvpn-cli d' \
+  pvpn-c='protonvpn-cli c'
+
+# Kubernetes
+alias k="kubectl" \
+      kg="kubectl get" \
+      kd="kubectl describe" \
+      krm="kubectl delete" \
+      klo="kubectl logs -f" \
+      ke="kubectl exec -it " \
+      ka="kubectl apply -f"
 
 # lsd
 alias ls='lsd'
@@ -33,16 +49,6 @@ alias sf='fasd -sif'     # interactive file selection
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias zz='fasd_cd -d -i' # cd with interactive selection
 
-# Kubernetes
-alias k="kubectl" \
-      kg="kubectl get" \
-      kd="kubectl describe" \
-      krm="kubectl delete" \
-      klo="kubectl logs -f" \
-      ke="kubectl exec -it " \
-      ka="kubectl apply -f"
-
-alias mpvm='mpv --vo=null --video=no --no-video --term-osd-bar --no-resume-playback'
 
 keb () {
   kubectl exec -it $1 -- bash
