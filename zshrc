@@ -50,6 +50,8 @@ bindkey -M vicmd 'j' down-line-or-beginning-search
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
+export PATH=$PATH:~/.local/bin
+
 # fasd
 eval "$(fasd --init auto)"
 

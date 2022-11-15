@@ -29,6 +29,7 @@ ristretto
 deluge
 discord
 librewolf
+docker
 ```
 
 ## AUR
@@ -56,6 +57,11 @@ mpd
 Set Librewolf as default browser
 ```sh
 xdg-settings set default-web-browser librewolf.desktop
+```
+
+Enable and docker 
+```sh
+sudo systemctl enable docker
 ```
 
 # NeoVim

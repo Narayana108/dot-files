@@ -13,7 +13,6 @@ export VISUAL=nvim
 export EDITOR=$VISUAL
 
 # Path
-export PATH=$PATH:~/.local/bin
 export PATH="$(yarn global bin):$PATH"
 
 
