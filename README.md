@@ -30,6 +30,7 @@ deluge
 discord
 librewolf
 docker
+docker-compose
 ```
 
 ## AUR
@@ -59,7 +60,7 @@ Set Librewolf as default browser
 xdg-settings set default-web-browser librewolf.desktop
 ```
 
-Enable and docker 
+optional - Enable and docker for startup
 ```sh
 sudo systemctl enable docker
 ```
