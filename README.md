@@ -62,6 +62,7 @@ xdg-settings set default-web-browser librewolf.desktop
 
 optional - Enable and docker for startup
 ```sh
+sudo usermod -aG docker $USER # use docker without sudo
 sudo systemctl enable docker
 ```
 
