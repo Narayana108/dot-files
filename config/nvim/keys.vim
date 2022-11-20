@@ -5,6 +5,8 @@ map <Space> <Leader>
 
 " A saner way to save files.
 nnoremap zz :update<cr>
+" escape + t
+nnoremap <Esc>t :update<CR> 
 
 " Reload Vim config
 nnoremap <Leader>r :so ~/.config/nvim/init.vim<CR>

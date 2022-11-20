@@ -1,0 +1,21 @@
+{
+	"name": "Vimium C",
+	"@time": "11/17/2022, 1:27:24 AM",
+	"time": 1668648444618,
+	"environment": {
+		"extension": "1.99.8",
+		"platform": "linux",
+		"firefox": 106
+	},
+	"keyLayout": 2,
+	"keyMappings": [
+		"#!no-check",
+		"map J nextTab",
+		"map K previousTab togglePinTab",
+		"map P togglePinTab",
+		""
+	],
+	"linkHintCharacters": "rstienfuplkvgm",
+	"showAdvancedOptions": false,
+	"vimSync": true
+}

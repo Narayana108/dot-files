@@ -56,17 +56,33 @@ export PATH=$PATH:~/.local/bin
 eval "$(fasd --init auto)"
 
 # asdf 
-export ASDF_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/asdf"
-export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/asdf/asdfrc"
-export ASDF_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/asdf-vm"
+#export ASDF_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/asdf"
+#export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/asdf/asdfrc"
+#export ASDF_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/asdf-vm"
 # append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
+#fpath=(${ASDF_DIR}/completions $fpath)
+
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
-
-. $HOME/.local/share/asdf-vm/asdf.sh
 
 # Include aliases dotfile
 source ~/Lab/git/dot-files/aliases
 
 (cat ~/.cache/wal/sequences &)
+
+#export PREFIX="$HOME/.local/share/n"
+#export N_PREFIX="$HOME/.local/share/n"
+
+
+export N_PREFIX="$HOME/.local/share/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+# bun completions
+[ -s "/home/narayana/.bun/_bun" ] && source "/home/narayana/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+export DENO_INSTALL="/home/narayana/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+

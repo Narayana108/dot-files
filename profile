@@ -68,3 +68,6 @@ export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 export HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zsh_history"
 export ANTIGEN_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/init.zsh"
 export ANTIGEN_LOCK="${XDG_CACHE_HOME:-$HOME/.cache}/antigen.lock"
+
+export PREFIX="$HOME/.local/share/n"
+export N_PREFIX="$HOME/.local/share/n"
