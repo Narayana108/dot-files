@@ -18,6 +18,7 @@ baseDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 [ ! -d "~/Music/lyrics" ] &&  mkdir -pv ~/Music/lyrics
 [ ! -d "~/.config/nvim" ] &&  mkdir -pv ~/.config/nvim
 [ ! -d "~/.config/lf" ] &&  mkdir -pv ~/.config/lf
+[ ! -d "~/.config/ranger" ] &&  mkdir -pv ~/.config/ranger
 [ ! -d "~/.config/zathura" ] &&  mkdir -pv ~/.config/zathura
 [ ! -d "~/.config/neofetch" ] &&  mkdir -pv ~/.config/neofetch
 [ ! -d "~/.config/cava" ] &&  mkdir -pv ~/.config/cava
@@ -64,6 +65,8 @@ ln -s ${baseDir}/Xmodmap ~/.Xmodmap
 ln -s ${baseDir}/config/zathura/zathurarc ~/.config/zathura
 ln -s ${baseDir}/config/cava/config ~/.config/cava/config
 ln -s ${baseDir}/config/neofetch/config.conf ~/.config/neofetch/config.conf
+ln -s ${baseDir}/config/picom.conf ~/.config/picom.conf
+ln -s ${baseDir}/config/ranger/rc.conf ~/.config/ranger/rc.conf
 
 for i in $(ls ${baseDir}/config/nvim); do
   ln -s ${baseDir}/config/nvim/$i ~/.config/nvim

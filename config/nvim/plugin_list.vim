@@ -33,8 +33,8 @@ Plug 'tpope/vim-fugitive'                   " Use git within vim
 
 " Themes
 Plug 'ap/vim-buftabline'                    " Minimal buffer status bar
-"Plug 'mg979/vim-xtabtine'                   " Full control and customization on tabs/buffers
-Plug 'mg979/tabline'                        " Full control and customization on tabs/buffers
+"Plug 'mg979/vim-xtabtine'                   " Old Full control and customization on tabs/buffers
+Plug 'mg979/tabline.nvim'                    " Full control and customization on tabs/buffers
 Plug 'skielbasa/vim-material-monokai'       " Theme
 Plug 'dylanaraps/wal.vim'                   " Use pywal colours as theme
 Plug 'ryanoasis/vim-devicons'               " Modern icons in nvim

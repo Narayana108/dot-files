@@ -1,3 +1,17 @@
+
+"-----------------------
+" tabline
+"-----------------------
+lua require'tabline.setup'.setup()
+lua require'tabline.setup'.mappings(true)
+let g:tabline_settings = {
+      \ 'relative_paths':           0,
+      \ 'theme':                    'paramount',
+      \ 'tabline_modes':            ['buffers', 'tabs', 'arglist'],
+      \ 'buffer_filtering':         1,
+      \}
+
+
 "-----------------------
 " airline
 "-----------------------

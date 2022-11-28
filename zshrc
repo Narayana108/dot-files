@@ -68,7 +68,11 @@ autoload -Uz compinit && compinit
 # Include aliases dotfile
 source ~/Lab/git/dot-files/aliases
 
+# pywal
 (cat ~/.cache/wal/sequences &)
+
+# ranger
+alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 
 #export PREFIX="$HOME/.local/share/n"
 #export N_PREFIX="$HOME/.local/share/n"
@@ -85,4 +89,3 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 export DENO_INSTALL="/home/narayana/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
-

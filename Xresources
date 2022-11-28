@@ -7,3 +7,7 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 Xcursor.size: 32
+URxvt*transparent: false
+URxvt*shading: 30
+
+st.alpha: 0

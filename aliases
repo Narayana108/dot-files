@@ -19,9 +19,11 @@ alias \
 
 # protonvpn
 alias \
-  pvpn-f='protonvpn-cli c -f' \
-  pvpn-d='protonvpn-cli d' \
-  pvpn-c='protonvpn-cli c'
+  vf='protonvpn-cli c -f' \
+  vd='protonvpn-cli d' \
+  vc='protonvpn-cli c' \
+  vcs41='protonvpn-cli c SG#41' \
+  vcs67='protonvpn-cli c SG#67'
 
 # Kubernetes
 alias k="kubectl" \

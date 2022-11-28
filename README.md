@@ -2,13 +2,15 @@
 ## pacman -S <package>
 
 ```sh
+nvim 
+alacritty
 github-cli 
 fasd 
 lsd 
 bat 
 ranger 
-nvim 
-lf 
+    ueberzug
+go
 python-pip 
 ripgrep 
 ksnip 
@@ -31,6 +33,7 @@ discord
 librewolf
 docker
 docker-compose
+#picom
 ```
 
 ## AUR
@@ -39,6 +42,11 @@ docker-compose
 brave-bin 
 keyman
 cava
+```
+
+## pip
+```
+pip3 install WoeUSB-ng # Create windows bootable usb
 ```
 
 ## Other
