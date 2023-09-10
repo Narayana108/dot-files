@@ -33,6 +33,7 @@ discord
 librewolf
 docker
 docker-compose
+pv
 #picom
 ```
 
