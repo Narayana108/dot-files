@@ -9,7 +9,7 @@ fasd
 lsd 
 bat 
 ranger 
-    ueberzug
+ueberzug
 go
 python-pip 
 ripgrep 
@@ -42,11 +42,21 @@ docker-compose
 brave-bin 
 keyman
 cava
+speedtest-go
+64gram
+```
+
+### Keyman
+```
+India Basic - basic_kbdinen  
+Gandhari gandhari  
+Hindi Devanagari Phonetic(ITRANS) - itrans_devanagari_hindi
 ```
 
 ## pip
 ```
 pip3 install WoeUSB-ng # Create windows bootable usb
+grip
 ```
 
 ## Other
@@ -175,6 +185,8 @@ import it after hikari via `zshrc.local`.
 # Zathura
 #### Terminal ebook and pdf viewer
 - Added vim shortcuts
+
+# Virtual Machine Manager 
 
 # Mon
 #### Bash script to view system resources

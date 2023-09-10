@@ -1,0 +1,67 @@
+drwx--xr--+ narayana narayana 1.1 KB Sun Sep 10 20:34:49 2023 .
+drwxr-xr-x  root     root      16 B  Fri Oct  7 22:07:57 2022 ..
+drwxr-xr-x  narayana narayana 140 B  Sun Sep 10 18:27:50 2023 .antigen
+.rw-------  narayana narayana 3.3 KB Sun Aug 13 22:30:51 2023 .bash_history
+.rw-r--r--  narayana narayana  21 B  Sun Jan  9 00:01:11 2022 .bash_logout
+.rw-r--r--  narayana narayana  57 B  Fri Oct  7 22:08:03 2022 .bash_profile
+.rw-r--r--  narayana narayana 2.6 KB Fri Oct  7 22:08:00 2022 .bashrc
+drwxr-xr-x  narayana narayana  38 B  Tue Nov  1 22:05:14 2022 .bkp-vscode-oss
+drwxr-xr-x  narayana narayana  14 B  Tue Nov 15 21:26:46 2022 .bun
+drwxr-xr-x  narayana narayana 1.5 KB Sun Sep 10 20:41:06 2023 .cache
+drwxr-xr-x  narayana narayana  20 B  Thu Oct 20 20:22:00 2022 .cert
+drwxr-xr-x  narayana narayana 1.5 KB Sun Sep 10 19:32:19 2023 .config
+drwxr-xr-x  narayana narayana   6 B  Tue Nov 15 21:26:05 2022 .deno
+.rw-r--r--  narayana narayana  24 B  Fri Oct  7 22:22:48 2022 .dmrc
+.rwxr-xr--  narayana narayana  88 B  Sat Oct  8 16:47:10 2022 .fehbg
+drwxr-xr-x  narayana narayana  12 B  Tue Nov 15 11:54:47 2022 .ghost
+.rw-r--r--  narayana narayana 144 B  Thu Nov 17 07:17:51 2022 .gitconfig
+drwx------  narayana narayana 368 B  Sun Sep 10 18:35:52 2023 .gnupg
+drwx------  narayana narayana  14 B  Thu Oct 20 19:03:55 2022 .icons
+drwxr-xr-x  narayana narayana   0 B  Sun Nov  6 11:31:23 2022 .idlerc
+drwx------  narayana narayana 128 B  Wed Sep  6 23:45:47 2023 .librewolf
+drwxr-xr-x  narayana narayana  32 B  Sat Oct  8 16:19:13 2022 .local
+drwxr-xr-x  narayana narayana   0 B  Sat Oct  8 19:42:47 2022 .lyrics
+drwx------  narayana narayana  34 B  Sat Oct  8 08:21:17 2022 .mozilla
+drwxrwxr--  narayana narayana  72 B  Sat Sep  9 18:17:54 2023 .mpd
+drwxr-xr-x  narayana narayana  28 B  Sat Oct 22 16:31:29 2022 .ncmpcpp
+.rw-r--r--  narayana narayana   1 B  Wed Dec  7 15:44:09 2022 .NERDTreeBookmarks
+.rw-------  narayana narayana   0 B  Tue Nov 15 11:32:34 2022 .node_repl_history
+drwxr-xr-x  narayana narayana 128 B  Tue Nov 15 09:55:50 2022 .npm
+drwx------  narayana narayana  10 B  Sat Oct  8 17:51:05 2022 .pki
+.rw-------  narayana narayana   0 B  Sat Oct 29 00:00:13 2022 .python_history
+.rw-r--r--  narayana narayana  28 B  Mon Nov 21 10:54:00 2022 .rangerdir
+.rw-r--r--  narayana narayana   7 B  Sun Aug 13 23:25:18 2023 .screamingfrogseospider
+drwxr-xr-x  narayana narayana 126 B  Sun Aug 13 23:25:20 2023 .ScreamingFrogSEOSpider
+drwxr-xr-x  narayana narayana  18 B  Fri Sep  1 14:55:42 2023 .screenlayout
+drwxr-xr-x  narayana narayana 232 B  Sun Aug 13 22:24:04 2023 .ssh
+drwxr-xr-x  narayana narayana 148 B  Sun Sep 10 20:37:19 2023 .steam
+lrwxrwxrwx  narayana narayana  33 B  Sun Sep 10 20:34:49 2023 .steampath ⇒ /home/narayana/.steam/sdk32/steam
+lrwxrwxrwx  narayana narayana  31 B  Sun Sep 10 20:34:49 2023 .steampid ⇒ /home/narayana/.steam/steam.pid
+drwx------  narayana narayana  48 B  Sun Sep  3 10:06:02 2023 .telegram-cli
+drwxr-xr-x  narayana narayana  18 B  Mon Aug 14 12:45:33 2023 .vmware
+drwxr-xr-x  narayana narayana  38 B  Sun Sep 10 19:19:19 2023 .vscode-oss
+drwx------  narayana narayana   0 B  Thu Aug 31 16:28:50 2023 .w3m
+.rw-r--r--  narayana narayana 223 B  Fri Sep  1 20:11:41 2023 .wget-hsts
+drwxr-xr-x  narayana narayana 126 B  Mon Nov  7 13:38:51 2022 .wine
+drwxr-xr-x  narayana narayana   4 B  Mon Aug 14 07:51:59 2023 .wpscan
+.rw-------  narayana narayana  52 B  Sun Sep 10 18:11:38 2023 .Xauthority
+.rw-r--r--  narayana narayana   0 B  Sat Oct  8 16:45:19 2022 .xinitrc
+lrwxrwxrwx  narayana narayana  40 B  Sun Oct 23 12:36:58 2022 .Xmodmap ⇒ /home/narayana/Lab/git/dot-files/Xmodmap
+lrwxrwxrwx  narayana narayana  43 B  Fri Oct 28 13:51:31 2022 .Xresources ⇒ /home/narayana/Lab/git/dot-files/Xresources
+.rw-------  narayana narayana  22 KB Sun Sep 10 20:37:19 2023 .xsession-errors
+.rw-------  narayana narayana  40 KB Sun Sep 10 14:42:08 2023 .xsession-errors.old
+.rw-r--r--  narayana narayana  44 KB Mon Sep  4 23:43:19 2023 .zcompdump
+.rw-------  narayana narayana 149 B  Mon Dec 12 18:30:36 2022 .zsh_history
+lrwxrwxrwx  narayana narayana  38 B  Fri Oct 28 13:51:31 2022 .zshrc ⇒ /home/narayana/Lab/git/dot-files/zshrc
+.r--r--r--  narayana narayana 5.1 KB Sun Sep 10 18:27:50 2023 .zshrc.zwc
+drwxr-xr-x  narayana narayana 110 B  Sat Sep  2 00:43:57 2023 Desktop
+drwxr-xr-x  narayana narayana 486 B  Fri Sep  1 22:44:36 2023 Documents
+drwxr-xr-x  narayana narayana 2.9 KB Sun Sep 10 19:49:49 2023 Downloads
+drwxr-xr-x  narayana narayana 350 B  Fri Sep  1 20:23:58 2023 Games
+drwxr-xr-x  narayana narayana   6 B  Tue Nov 15 09:41:35 2022 go
+drwxr-xr-x  narayana narayana 102 B  Sun Aug 13 22:39:14 2023 Lab
+drwxr-xr-x  narayana narayana 638 B  Sun Dec  4 20:06:40 2022 Music
+drwxr-xr-x  narayana narayana 542 B  Sat Oct  8 16:43:43 2022 Pictures
+drwxr-xr-x  narayana narayana   0 B  Fri Oct  7 22:22:48 2022 Public
+drwxr-xr-x  narayana narayana 1.2 KB Sat Jul 29 12:20:18 2023 Videos
+drwxr-xr-x  narayana narayana  24 B  Wed Aug 24 21:28:56 2022 Work

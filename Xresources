@@ -1,4 +1,7 @@
-Xft.dpi: 192
+Xft.dpi: 96
+# 192 = 4K
+# 96 = 1080
+
 URxvt.font: xft:FiraMono-Regular:size=14
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault

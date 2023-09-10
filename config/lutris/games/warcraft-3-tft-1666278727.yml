@@ -1,0 +1,9 @@
+game:
+  exe: /home/narayana/Games/Warcraft_3_TFT/war3.exe
+  working_dir: ~/Games/Warcraft_3_TFT
+system: {}
+wine:
+  Desktop: false
+  WineDesktop: 1920x1080
+  fsync: true
+  version: lutris-7.2-2-x86_64

@@ -1,0 +1,126 @@
+game:
+  arch: win64
+  args: ''
+  exe: /home/narayana/Games/warcraft-iii-reforged/drive_c/Program Files (x86)/Warcraft
+    III/Warcraft III Launcher.exe
+  prefix: /home/narayana/Games/warcraft-iii-reforged
+game_slug: warcraft-iii-reforged
+name: 'Warcraft III: Reforged'
+requires: null
+script:
+  files:
+  - setup: http://dist.blizzard.com/downloads/bna-installers/322d5bb9ae0318de3d4cde7641c96425/retail.1/Battle.net-Setup-enUS.exe
+  - w3champions: https://update-service.w3champions.com/api/launcher/win
+  game:
+    arch: win64
+    args: --exec="launch W3"
+    exe: drive_c/Program Files (x86)/Battle.net/Battle.net.exe
+    prefix: $GAMEDIR
+  installer:
+  - task:
+      arch: win64
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - task:
+      app: arial
+      arch: win64
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      silent: 'True'
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - task:
+      arch: win64
+      key: Version
+      path: HKEY_CURRENT_USER\Software\Wine
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      value: win7
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - task:
+      arch: win64
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - write_json:
+      data:
+        Client:
+          GameLaunchWindowBehavior: '0'
+          GameSearch:
+            BackgroundSearch: 'true'
+          HardwareAcceleration: 'false'
+          Sound:
+            Enabled: 'false'
+          Streaming:
+            StreamingEnabled: 'false'
+        w3:
+          AdditionalLaunchArguments: -windowmode fullscreen
+      file: $GAMEDIR/drive_c/users/$USER/Application Data/Battle.net/Battle.net.config
+  - task:
+      arch: win64
+      key: backend
+      path: HKEY_CURRENT_USER\Software\Wine\DXVA2
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      value: va
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - task:
+      arch: win64
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - task:
+      arch: win64
+      env:
+        DXVK_STATE_CACHE_PATH: /home/narayana/Games/warcraft-iii-reforged
+        STAGING_SHARED_MEMORY: '1'
+        __GL_SHADER_DISK_CACHE: '1'
+        __GL_SHADER_DISK_CACHE_PATH: /home/narayana/Games/warcraft-iii-reforged
+      exclude_processes: Battle.net.exe Agent.exe "Battle.net Helper.exe"
+      executable: /home/narayana/Games/installation_files/Battle.net-Setup.exe
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - task:
+      arch: win64
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - task:
+      arch: win64
+      env:
+        DXVK_STATE_CACHE_PATH: /home/narayana/Games/warcraft-iii-reforged
+        STAGING_SHARED_MEMORY: '1'
+        __GL_SHADER_DISK_CACHE: '1'
+        __GL_SHADER_DISK_CACHE_PATH: /home/narayana/Games/warcraft-iii-reforged
+      executable: /home/narayana/Games/installation_files/w3champions-Setup-1.3.7.exe
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  - task:
+      arch: win64
+      prefix: /home/narayana/Games/warcraft-iii-reforged
+      wine_path: /home/narayana/.local/share/lutris/runners/wine/lutris-GE-Proton8-13-x86_64/bin/wine
+  system:
+    env:
+      DXVK_STATE_CACHE_PATH: $GAMEDIR
+      STAGING_SHARED_MEMORY: 1
+      __GL_SHADER_DISK_CACHE: 1
+      __GL_SHADER_DISK_CACHE_PATH: $GAMEDIR
+    exclude_processes: Agent.exe "Battle.net Helper.exe"
+  wine:
+    Desktop: true
+    overrides:
+      nvapi: disabled
+      nvapi64: disabled
+    version: lutris-GE-Proton8-13-x86_64
+slug: warcraft-iii-reforged-battlenet-w3champion
+system:
+  env:
+    DXVK_STATE_CACHE_PATH: /home/narayana/Games/warcraft-iii-reforged
+    STAGING_SHARED_MEMORY: '1'
+    __GL_SHADER_DISK_CACHE: '1'
+    __GL_SHADER_DISK_CACHE_PATH: /home/narayana/Games/warcraft-iii-reforged
+  exclude_processes: Agent.exe "Battle.net Helper.exe"
+variables: {}
+version: Battle.net + w3champions
+wine:
+  Desktop: false
+  fsync: true
+  overrides:
+    nvapi: disabled
+    nvapi64: disabled
+  show_debug: +fps
+  version: lutris-GE-Proton8-13-x86_64
+year: 2020
