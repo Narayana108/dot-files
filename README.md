@@ -188,6 +188,8 @@ import it after hikari via `zshrc.local`.
 - Added vim shortcuts
 
 # Virtual Machine Manager 
+QEMU/KVM
+virt-manager
 
 # Mon
 #### Bash script to view system resources
